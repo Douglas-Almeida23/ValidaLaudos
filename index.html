@@ -28,7 +28,7 @@ footer{text-align:center;padding:20px;color:#777;font-size:13px}
 </style>
 </head>
 <body>
-<header><b>✅ Valida<span>Laudos</span></b><a class="btn" href="https://5511985013903/5511985013903">Falar no WhatsApp</a></header>
+<header><b>✅ Valida<span>Laudos</span></b><a class="btn" href="https://wa.me/5511985013903?text=Quero%20validar%20meu%20laudo" target="_blank">Falar no WhatsApp</a></header>
 <div class="hero">
 <span class="badge">✓ SEM CADASTRO • RESULTADO EM 2 MIN</span>
 <h1>Seu laudo é <span>verdadeiro?</span><br>Descubra agora antes de comprar.</h1>
@@ -58,16 +58,20 @@ footer{text-align:center;padding:20px;color:#777;font-size:13px}
 <div class="box" style="text-align:center">
 <h2>Como Funciona?</h2><br>
 <p>1️⃣ Você envia o número do laudo<br>2️⃣ Consultamos na base oficial<br>3️⃣ Recebe o resultado no WhatsApp</p><br>
-<a class="btn" href="https://5511985013903/5511985013903?text=Quero%20validar%20meu%20laudo">CHAMAR NO WHATSAPP</a>
+<a class="btn" href="https://wa.me/5511985013903?text=Quero%20validar%20meu%20laudo" target="_blank">CHAMAR NO WHATSAPP</a>
 </div>
 <footer>ValidaLaudos © 2026 - Todos os direitos reservados<br>Contato: contato@validalaudos.com.br</footer>
 <script>
 function validar(){
 let c=document.getElementById('codigo').value;
 let r=document.getElementById('res');
-if(c.length<3){r.innerHTML="⚠️ Digite o número do laudo primeiro!";r.style.color="red";return}
-r.innerHTML="⏳ Consultando... aguarde 3 segundos";
-setTimeout(()=>{r.innerHTML="✅ PRÉ-VALIDAÇÃO OK! Para receber o relatório completo, clique no WhatsApp abaixo.";r.style.color="green";window.open("https://wa.me/5511985013903?text=Meu%20laudo")+encodeURIComponent(c)+"%20quero%20o%20relatório%20completo","_blank")},2000)
+if(c.length<3){r.innerHTML="⚠️ Digite o número do laudo primeiro!";r.style.color="red";return;}
+r.innerHTML="⏳ Consultando... aguarde 2 segundos";
+setTimeout(()=>{
+let link="https://wa.me/5511985013903?text=Meu%20laudo%20"+encodeURIComponent(c)+"%20quero%20o%20relat%C3%B3rio%20completo";
+r.innerHTML="✅ PRÉ-VALIDAÇÃO OK! Para receber o relatório completo, clique no WhatsApp abaixo.<br><br><a href='"+link+"' target='_blank' style='background:#25D366;color:white;padding:15px 25px;border-radius:10px;text-decoration:none;display:inline-block;font-weight:bold;'>ABRIR WHATSAPP AGORA</a>";
+r.style.color="green";
+},2000);
 }
 </script>
 </body>
