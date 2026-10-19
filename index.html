@@ -67,7 +67,7 @@ let c=document.getElementById('codigo').value;
 let r=document.getElementById('res');
 if(c.length<3){r.innerHTML="⚠️ Digite o número do laudo primeiro!";r.style.color="red";return}
 r.innerHTML="⏳ Consultando... aguarde 3 segundos";
-setTimeout(()=>{r.innerHTML="✅ PRÉ-VALIDAÇÃO OK! Para receber o relatório completo, clique no WhatsApp abaixo.";r.style.color="green";window.open("https://5511985013903/5511985013903?text=Meu%20laudo%20é%20"+encodeURIComponent(c)+"%20quero%20o%20relatório%20completo","_blank")},2000)
+setTimeout(()=>{r.innerHTML="✅ PRÉ-VALIDAÇÃO OK! Para receber o relatório completo, clique no WhatsApp abaixo.";r.style.color="green";window.open("https://wa.me/5511985013903?text=Meu%20laudo")+encodeURIComponent(c)+"%20quero%20o%20relatório%20completo","_blank")},2000)
 }
 </script>
 </body>
