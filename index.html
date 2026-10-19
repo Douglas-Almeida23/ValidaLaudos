@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ValidaLaudos - Valide seu Laudo em 2 Minutos</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
+body{background:#f6f7f9;color:#111}
+header{background:#0f172a;color:#fff;padding:14px 20px;display:flex;justify-content:space-between;align-items:center}
+header b{font-size:20px} header b span{color:#22c55e}
+.btn{background:#22c55e;color:#fff;padding:12px 20px;border-radius:8px;text-decoration:none;font-weight:bold;display:inline-block}
+.hero{padding:50px 20px;text-align:center;background:#fff}
+.hero h1{font-size:34px;line-height:1.2;max-width:700px;margin:0 auto 15px}
+.hero h1 span{color:#16a34a}
+.hero p{font-size:17px;color:#555;max-width:600px;margin:0 auto 20px}
+.badge{background:#dcfce7;color:#166534;padding:6px 12px;border-radius:20px;font-size:13px;font-weight:bold}
+.box{max-width:700px;margin:30px auto;background:#fff;padding:25px;border-radius:16px;box-shadow:0 10px 30px rgba(0,0,0,.08)}
+.box h2{margin-bottom:10px}
+input,select,textarea{width:100%;padding:13px;margin:7px 0;border:1px solid #ddd;border-radius:8px;font-size:15px}
+label{font-size:13px;font-weight:bold}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media(max-width:600px){.grid{grid-template-columns:1fr}.hero h1{font-size:26px}}
+.cards{display:flex;gap:15px;justify-content:center;flex-wrap:wrap;padding:20px}
+.card{background:#fff;padding:20px;border-radius:12px;width:220px;text-align:center}
+.card b{font-size:22px}
+footer{text-align:center;padding:20px;color:#777;font-size:13px}
+</style>
+</head>
+<body>
+<header><b>✅ Valida<span>Laudos</span></b><a class="btn" href="https://wa.me/5511999999999">Falar no WhatsApp</a></header>
+<div class="hero">
+<span class="badge">✓ SEM CADASTRO • RESULTADO EM 2 MIN</span>
+<h1>Seu laudo é <span>verdadeiro?</span><br>Descubra agora antes de comprar.</h1>
+<p>Evite golpe na compra de carro, moto ou imóvel. Valide a autenticidade do laudo cautelar em segundos.</p>
+<a class="btn" href="#validar">VALIDAR MEU LAUDO AGORA ↓</a>
+<p style="margin-top:12px;font-size:13px">⭐ 4.9/5 - Mais de 12.400 laudos validados</p>
+</div>
+<div class="cards">
+<div class="card"><b>🛡️</b><br><b>100% Seguro</b><br>Seus dados protegidos</div>
+<div class="card"><b>⚡</b><br><b>2 Minutos</b><br>Resultado rápido</div>
+<div class="card"><b>📄</b><br><b>Laudo Oficial</b><br>Consulta em base oficial</div>
+</div>
+<div class="box" id="validar">
+<h2>🔍 Validar Laudo Grátis</h2>
+<p style="color:#555;margin-bottom:15px">Preencha os dados do laudo que você recebeu:</p>
+<label>Número do Laudo / Chassi</label>
+<input type="text" id="codigo" placeholder="Ex: 123456 ou 9BWZZZ...">
+<div class="grid">
+<div><label>Placa do Veículo</label><input type="text" placeholder="ABC1D23"></div>
+<div><label>Seu WhatsApp</label><input type="text" placeholder="(11) 99999-9999"></div>
+</div>
+<label>Tipo de Laudo</label>
+<select><option>Laudo Cautelar</option><option>Laudo de Transferência</option><option>Vistoria Cautelar</option></select>
+<button class="btn" style="width:100%;border:0;cursor:pointer;font-size:16px;margin-top:10px" onclick="validar()">VALIDAR AGORA - É GRÁTIS</button>
+<p id="res" style="margin-top:15px;font-weight:bold;text-align:center"></p>
+</div>
+<div class="box" style="text-align:center">
+<h2>Como Funciona?</h2><br>
+<p>1️⃣ Você envia o número do laudo<br>2️⃣ Consultamos na base oficial<br>3️⃣ Recebe o resultado no WhatsApp</p><br>
+<a class="btn" href="https://wa.me/5511999999999?text=Quero%20validar%20meu%20laudo">CHAMAR NO WHATSAPP</a>
+</div>
+<footer>ValidaLaudos © 2026 - Todos os direitos reservados<br>Contato: contato@validalaudos.com.br</footer>
+<script>
+function validar(){
+let c=document.getElementById('codigo').value;
+let r=document.getElementById('res');
+if(c.length<3){r.innerHTML="⚠️ Digite o número do laudo primeiro!";r.style.color="red";return}
+r.innerHTML="⏳ Consultando... aguarde 3 segundos";
+setTimeout(()=>{r.innerHTML="✅ PRÉ-VALIDAÇÃO OK! Para receber o relatório completo, clique no WhatsApp abaixo.";r.style.color="green";window.open("https://wa.me/5511999999999?text=Meu%20laudo%20é%20"+encodeURIComponent(c)+"%20quero%20o%20relatório%20completo","_blank")},2000)
+}
+</script>
+</body>
+</html>
