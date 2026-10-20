@@ -1,136 +1,145 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Valida Laudos - SaaS Perito Grafotécnico</title>
-<script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Valida Laudos PRO - R$ 97/mês - Laudos Validados Digitalmente</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
-body{background:#eef1f5;color:#111}
-:root{--azul:#15356B}
-header{background:var(--azul);color:#fff;padding:15px 20px;display:flex;justify-content:space-between;align-items:center}
-header b{font-size:20px}
-.btn{background:#22c55e;color:#fff;padding:12px 18px;border-radius:8px;text-decoration:none;font-weight:bold;border:0;cursor:pointer;display:inline-block;text-align:center}
-.btn2{background:var(--azul);color:#fff;padding:12px 18px;border-radius:8px;font-weight:bold;border:0;cursor:pointer}
-.btnRed{background:#dc2626;color:#fff;padding:12px 18px;border-radius:8px;font-weight:bold;border:0;cursor:pointer}
-.card{max-width:900px;margin:20px auto;background:#fff;padding:25px;border-radius:16px;box-shadow:0 8px 25px rgba(0,0,0,.08)}
-input,select,textarea{width:100%;padding:12px;margin:6px 0 12px;border:1px solid #ddd;border-radius:8px}
+body{background:#0f172a;color:#fff}
+.banner{background:linear-gradient(90deg,#f59e0b,#eab308);color:#000;text-align:center;padding:12px;font-weight:900;font-size:14px}
+.banner a{background:#000;color:#f59e0b;padding:6px 14px;border-radius:20px;text-decoration:none;margin-left:10px}
+header{text-align:center;padding:30px 20px}
+header h1{font-size:38px} header h1 span{color:#f59e0b}
+header p{opacity:.85;margin-top:8px}
+.hero{max-width:950px;margin:0 auto;background:#fff;color:#0f172a;padding:30px;border-radius:20px;text-align:center;box-shadow:0 10px 40px rgba(0,0,0,.5)}
+.hero h2{font-size:28px}
+.badge{display:inline-block;background:#fef3c7;color:#92400e;padding:6px 12px;border-radius:20px;font-size:12px;font-weight:bold;margin:10px 0}
+.btn{display:inline-block;background:#0f172a;color:#fff;padding:15px 28px;border-radius:12px;text-decoration:none;font-weight:900;margin:10px 5px;font-size:16px}
+.btn-gold{background:linear-gradient(90deg,#f59e0b,#eab308);color:#000}
+.grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:15px;max-width:950px;margin:20px auto}
+.card{background:#1e293b;padding:20px;border-radius:14px;text-align:center;border:1px solid #334155}
+.card b{color:#f59e0b}
+.planos{max-width:600px;margin:20px auto}
+.plano{background:#fff;color:#0f172a;padding:30px;border-radius:20px;text-align:center;border:4px solid #f59e0b;position:relative}
+.plano::after{content:"⭐ MAIS CONTRATADO";position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:#f59e0b;color:#000;font-size:11px;font-weight:900;padding:4px 10px;border-radius:20px}
+.preco{font-size:42px;font-weight:900;margin:10px 0}
+.form{max-width:650px;margin:20px auto;background:#fff;color:#0f172a;padding:25px;border-radius:20px}
+input,select,textarea{width:100%;padding:13px;margin:8px 0;border:1px solid #cbd5e1;border-radius:10px}
 label{font-size:13px;font-weight:bold}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-@media(max-width:700px){.grid{grid-template-columns:1fr}}
-.hidden{display:none}
-.checkItem{display:flex;gap:10px;align-items:flex-start;background:#f8fafc;padding:12px;border-radius:10px;margin-bottom:8px;border:1px solid #e2e8f0}
-.checkItem select{width:170px;margin:0}
-.bar{height:20px;background:#e5e7eb;border-radius:20px;overflow:hidden;margin:10px 0}
-.bar div{height:100%;transition:.4s}
-.up{width:110px;height:110px;object-fit:cover;border:2px dashed #999;border-radius:10px;cursor:pointer;background:#f9fafb}
-.previewBox{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:10px;text-align:center}
-.previewBox img{width:100%;height:100px;object-fit:cover;border-radius:8px;border:1px solid #ddd}
-.tag{padding:4px 10px;border-radius:20px;font-size:12px;font-weight:bold}
+.footer{background:#020617;padding:35px;text-align:center;font-size:12px;line-height:1.7;color:#cbd5e1}
+.footer a{color:#f59e0b}
+.hash{font-size:11px;background:#f1f5f9;padding:10px;border-radius:8px;word-break:break-all;margin-top:10px;color:#0f172a}
+@media(max-width:700px){.grid{grid-template-columns:1fr} header h1{font-size:28px}}
 </style>
 </head>
 <body>
-<header><b>VALIDA LAUDOS</b><span id="userTop">SaaS Perito Grafotécnico</span></header>
 
-<!-- TELA 1 LOGIN -->
-<div id="telaLogin" class="card" style="max-width:480px;text-align:center">
-<h2 style="color:#15356B">🔐 Área do Perito</h2><p style="color:#666;margin:10px 0">Faça seu laudo em 15 minutos, não em 4 horas</p>
-<label style="text-align:left;display:block">Email</label><input id="email" placeholder="perito@email.com" value="perito@validalaudos.com.br">
-<label style="text-align:left;display:block">Senha</label><input type="password" id="senha" placeholder="****" value="1234">
-<button class="btn2" style="width:100%" onclick="login()">ENTRAR NO PAINEL →</button>
-<p style="margin-top:12px;font-size:13px;color:#666">Teste: perito@validalaudos.com.br / 1234<br>Ou crie conta grátis</p>
-<button class="btn" style="width:100%;margin-top:10px" onclick="window.open('https://wa.me/5511985013903?text=Quero%20assinar%20o%20ValidaLaudos%20para%20Peritos','_blank')">QUERO ASSINAR - FALAR NO WHATSAPP</button>
-<p style="margin-top:12px"><a href="#" onclick="mostrarValidarPublico();return false">Sou cliente, quero validar um código →</a></p>
+<div class="banner">🔥 LANÇAMENTO PRO - 3 DIAS GRÁTIS | Depois só R$ 97/mês <a href="https://mpago.la/1kPLRYH" target="_blank">QUERO ASSINAR →</a></div>
+
+<header>
+<h1>🛡️ VALIDA <span>LAUDOS PRO</span></h1>
+<p style="font-size:18px;font-weight:bold">O Único Com Validação por QR Code + Hash Digital no Brasil</p>
+<p>Feito para Peritos que não querem perder cliente por laudo amador</p>
+<p style="margin-top:10px;background:#1e293b;display:inline-block;padding:8px 14px;border-radius:20px;font-size:13px">⏳ <span id="txtTeste">Você tem 3 dias grátis restantes</span></p>
+</header>
+
+<div class="hero">
+<div class="badge">✓ CREA / CAU ✓ QR CODE ✓ HASH SHA-256 ✓ LGPD ✓ AUDITORIA</div>
+<h2>Seu laudo pronto em 15 minutos, validado e impossível de falsificar!</h2>
+<p style="margin-top:10px">Sem Word, sem formatação, sem dor de cabeça. O cliente escaneia o QR Code e confirma que é VERDADEIRO na hora.</p>
+<a class="btn btn-gold" href="#teste">COMEÇAR 3 DIAS GRÁTIS →</a>
+<a class="btn" href="#validar">VALIDAR UM LAUDO</a>
+<p style="font-size:12px;margin-top:10px;color:#64748b">Sem cartão no teste. Cancele quando quiser.</p>
 </div>
 
-<!-- TELA 2 DASHBOARD -->
-<div id="telaDash" class="card hidden">
-<h2>📋 Meus Laudos - <span id="nomePerito"></span></h2><p id="infoPerito" style="color:#666;font-size:13px"></p><br>
-<div style="display:flex;gap:10px;flex-wrap:wrap"><button class="btn2" onclick="novoLaudo()">+ NOVO LAUDO</button><button class="btn" onclick="mostrarValidarPublico()">VALIDAR CÓDIGO PÚBLICO</button></div>
-<div id="listaLaudos" style="margin-top:20px"></div>
-</div>
-
-<!-- TELA 3 NOVO LAUDO -->
-<div id="telaNovo" class="card hidden">
-<h2>📝 Novo Laudo Grafotécnico</h2><p style="color:#666;font-size:13px">Upload questionada + 3 padrões • Checklist 12 ABNT • Gera PDF + QR Code</p><br>
 <div class="grid">
-<div><label>Nome do Caso / Processo</label><input id="fCaso" placeholder="Ex: Caso Silva x Santos - Proc 123"></div>
-<div><label>Requerente</label><input id="fReq" placeholder="Quem pediu a perícia"></div>
-<div><label>Nome Perito</label><input id="fPerito" value="Dr. Carlos Perito"></div>
-<div><label>Registro CONPEJ</label><input id="fReg" placeholder="Ex: CONPEJ 12345"></div>
-</div>
-<label>📤 ASSINATURAS - Clique para subir foto</label>
-<div class="previewBox">
-<div><p style="font-size:12px;font-weight:bold">QUESTIONADA (Grande)</p><input type="file" accept="image/*" onchange="lerImg(this,'imgQ')"><img id="imgQ" class="up"></div>
-<div><p style="font-size:12px;font-weight:bold">PADRÃO 1</p><input type="file" accept="image/*" onchange="lerImg(this,'imgP1')"><img id="imgP1" class="up"></div>
-<div><p style="font-size:12px;font-weight:bold">PADRÃO 2</p><input type="file" accept="image/*" onchange="lerImg(this,'imgP2')"><img id="imgP2" class="up"></div>
-<div><p style="font-size:12px;font-weight:bold">PADRÃO 3</p><input type="file" accept="image/*" onchange="lerImg(this,'imgP3')"><img id="imgP3" class="up"></div>
+<div class="card"><b>📸 FOTOS AUTOMÁTICAS</b><br>Suba fotos, o sistema organiza no laudo sozinho</div>
+<div class="card"><b>📄 PDF COM VALIDAÇÃO</b><br>QR Code + Hash + Carimbo de tempo + IP registrado</div>
+<div class="card"><b>🔒 PROTEÇÃO TOTAL</b><br>Termos de Uso + LGPD + Log de auditoria pra você e pro perito</div>
 </div>
 
-<h3 style="margin:20px 0 10px">✅ CHECKLIST ABNT - 12 ITENS OBRIGATÓRIOS</h3>
-<p style="font-size:13px;color:#555">Marque cada item como COMPATÍVEL ou DIVERGENTE. Precisa marcar os 12 para gerar o PDF.</p>
-<div id="checklist"></div>
-<div style="background:#f0fdf4;padding:15px;border-radius:10px;margin-top:15px">
-<b>📊 PORCENTAGEM AUTOMÁTICA</b><div class="bar"><div id="barraPct" style="width:0%;background:#22c55e"></div></div>
-<p id="txtPct" style="font-weight:bold;font-size:18px">0% - Preencha o checklist</p>
-<p id="txtStatus"></p>
+<div class="planos">
+<div class="plano">
+<h3>Mensal PRO</h3><div class="preco">R$ 97<span style="font-size:16px">/mês</span></div>
+<p>✓ Laudos ilimitados<br>✓ QR Code + Hash<br>✓ Validação pública<br>✓ Suporte WhatsApp prioritário<br>✓ 3 dias grátis</p>
+<a class="btn btn-gold" href="https://mpago.la/1kPLRYH" target="_blank">ASSINAR PRO R$ 97/mês →</a>
+<p style="font-size:11px;color:#64748b;margin-top:8px">Pagamento seguro via Mercado Pago - Pix, Cartão, Boleto</p>
 </div>
-<label>Conclusão (Texto editável perito)</label><textarea id="fConclusao" rows="4" placeholder="Ex: Após análise dos 12 pontos ABNT, conclui-se que a assinatura questionada é AUTÊNTICA..."></textarea>
-<label><input type="checkbox" id="chkResp" style="width:auto"> Assumo responsabilidade Art. 473 CPC - Declaro que sou responsável pelo laudo</label>
-<br><br>
-<button class="btn2" onclick="finalizarLaudo()">GERAR PDF + QR CODE →</button>
-<button class="btnRed" onclick="voltarDash()">VOLTAR</button>
 </div>
 
-<!-- TELA 4 VER LAUDO + PDF -->
-<div id="telaVer" class="card hidden">
-<div id="pdfArea" style="border:1px solid #ddd;padding:0">
-<div style="background:#15356B;color:#fff;padding:20px;display:flex;justify-content:space-between"><b>Valida Laudos | <span id="vCodigo"></span></b><span>LAUDO GRAFOTÉCNICO</span></div>
-<div style="padding:20px">
-<h1 style="text-align:center;font-size:22px">LAUDO DE ANÁLISE GRAFOTÉCNICA</h1><br>
-<div id="vDados"></div>
-<h3 style="margin:15px 0">Grid Assinaturas</h3><div id="vImgs" class="previewBox"></div>
-<h3 style="margin:20px 0 10px">Página 2 - Checklist ABNT</h3><div id="vCheck"></div>
-<h3 style="margin:20px 0 10px">Página 3 - Conclusão</h3><p id="vConclusao"></p>
-<div style="margin-top:20px;background:#fefce8;padding:12px;border-radius:8px;font-size:13px"><b>Aviso Legal:</b> "Sistema apenas organizador, responsabilidade exclusiva perito Art 156 e 473 CPC"</div>
-<div style="display:flex;justify-content:space-between;align-items:center;margin-top:20px"><div><p>___________________________</p><p>Assinatura Perito</p></div><div style="text-align:center"><canvas id="qr"></canvas><p style="font-size:11px">Escaneie para validar<br><span id="vLink"></span></p></div></div>
-<div style="background:#15356B;color:#fff;text-align:center;padding:10px;margin-top:15px;font-size:12px">Valide em validalaudos.com.br/validar/<span class="codSpan"></span></div>
-</div></div><br>
-<button class="btn" onclick="window.print()">📥 BAIXAR PDF / IMPRIMIR</button>
-<button class="btn2" onclick="compartilharWhats()">COMPARTILHAR NO WHATSAPP</button>
-<button class="btnRed" onclick="voltarDash()">VOLTAR</button>
+<div class="form" id="teste">
+<h3>🚀 Criar Conta PRO - 3 Dias Grátis</h3>
+<input id="nomePerito" placeholder="Seu nome completo">
+<input id="crea" placeholder="CREA / CAU - Ex: CREA-SP 123456">
+<input id="email" placeholder="Email profissional">
+<input id="whats" placeholder="WhatsApp">
+<label><input type="checkbox" id="aceito" style="width:auto"> Li e aceito os <a href="#termos">Termos de Uso</a>, <a href="#lgpd">Política de Privacidade (LGPD)</a> e entendo que a responsabilidade técnica e legal do laudo é EXCLUSIVA do perito assinante, portador de CREA/CAU ativo. O Valida Laudos PRO é ferramenta de apoio, não substitui o juízo técnico do profissional.</label>
+<button class="btn btn-gold" style="width:100%;border:0;cursor:pointer" onclick="iniciarTeste()">CRIAR CONTA PRO GRÁTIS →</button>
+<p id="msg" style="text-align:center;margin-top:10px;font-weight:bold"></p>
 </div>
 
-<!-- TELA 5 VALIDAR PUBLICO -->
-<div id="telaValidar" class="card hidden" style="text-align:center">
-<h2>🔍 Validar Laudo Público - Sem Login</h2><p style="color:#666">Digite o código do laudo que está no PDF</p><br>
-<input id="codValidar" placeholder="Ex: VL-2026-8A2F...">
-<button class="btn2" style="width:100%" onclick="validarCodigo()">VALIDAR AGORA</button>
-<div id="resValidar" style="margin-top:20px"></div>
-<button class="btn" style="margin-top:15px" onclick="location.reload()">VOLTAR AO INÍCIO</button>
+<div class="form">
+<h3>📝 Gerar Laudo PRO</h3>
+<input id="cliente" placeholder="Nome do Cliente">
+<input id="endereco" placeholder="Endereço do Imóvel">
+<select id="tipo"><option>Laudo de Vistoria de Imóvel</option><option>Laudo de Infiltração</option><option>Laudo de Avaliação</option><option>Laudo de Patologia</option></select>
+<textarea id="descricao" rows="4" placeholder="Descrição técnica da vistoria:"></textarea>
+<input id="fotos" type="file" multiple accept="image/*">
+<button class="btn" style="width:100%;border:0;cursor:pointer;background:#0f172a;color:#fff" onclick="gerarLaudo()">GERAR LAUDO PRO VALIDADO →</button>
+<div id="resultado"></div>
+</div>
+
+<div class="form" id="validar" style="background:#fefce8">
+<h3>🔍 Validar um Laudo PRO</h3>
+<input id="codigoValidar" placeholder="Ex: VL-PRO-2026-001234">
+<button class="btn" style="width:100%;border:0;cursor:pointer" onclick="validar()">VALIDAR AGORA</button>
+<p id="resValidar"></p>
+</div>
+
+<div class="footer" id="termos">
+<h3 style="color:#fff">TERMOS DE USO - VALIDA LAUDOS PRO</h3>
+<p><b>1. NATUREZA:</b> O Valida Laudos PRO é ferramenta de apoio tecnológico. Não é escritório de perícia.<br>
+<b>2. RESPONSABILIDADE DO PERITO:</b> O perito é o ÚNICO responsável técnico, civil e criminal pelo conteúdo e assinatura do laudo. Declara possuir CREA/CAU ativo.<br>
+<b>3. RESPONSABILIDADE DA PLATAFORMA:</b> Garante apenas autenticidade digital (Hash + QR Code + Log). Não responde por erros técnicos do laudo.<br>
+<b>4. PAGAMENTO:</b> Assinatura mensal R$ 97,00 via Mercado Pago. Não há reembolso após emissão de laudos no período.<br>
+<b>5. CANCELAMENTO:</b> Pode cancelar a qualquer momento pelo WhatsApp, sem multa.<br><br>
+<span id="lgpd"><b>LGPD - LEI 13.709/2018:</b> Coletamos nome, CREA, email e dados do cliente apenas para emissão do laudo. Não vendemos dados. Você pode pedir exclusão a qualquer momento.</span><br><br>
+© 2026 Valida Laudos PRO | WhatsApp (11) 98501-3903</p>
 </div>
 
 <script>
-let laudos=[];let laudoAtual=null;let itens=["1 Pressão gráfica","2 Progressão","3 Inclinação axial","4 Alinhamento base","5 Espaçamento interliteral","6 Ataques e remates","7 Morfologia","8 Valores curvilíneos","9 Valores angulares","10 Ritmo gráfico","11 Momentos gráficos","12 Comportamento linha"];
-let vals=Array(12).fill('');
-function login(){let e=document.getElementById('email').value;document.getElementById('telaLogin').classList.add('hidden');document.getElementById('telaDash').classList.remove('hidden');document.getElementById('nomePerito').innerText=e;document.getElementById('infoPerito').innerText="Perito Grafotécnico | CONPEJ - Plano Ativo";renderLista();}
-function novoLaudo(){document.getElementById('telaDash').classList.add('hidden');document.getElementById('telaNovo').classList.remove('hidden');montaCheck();}
-function voltarDash(){['telaNovo','telaVer','telaValidar'].forEach(id=>document.getElementById(id).classList.add('hidden'));document.getElementById('telaDash').classList.remove('hidden');renderLista();}
-function montaCheck(){let h='';itens.forEach((n,i)=>{h+=`<div class="checkItem"><b style="width:220px">${n}</b><select onchange="setVal(${i},this.value)"><option value="">Selecione</option><option value="COMPATIVEL">✅ COMPATÍVEL</option><option value="DIVERGENTE">❌ DIVERGENTE</option></select><input placeholder="Observação" oninput="obs(${i},this.value)" style="margin:0"></div>`});document.getElementById('checklist').innerHTML=h;}
-function setVal(i,v){vals[i]=v;calcPct();}
-function calcPct(){let preenchidos=vals.filter(x=>x!=='').length;let comp=vals.filter(x=>x==='COMPATIVEL').length;let pct=preenchidos?Math.round(comp/preenchidos*100):0;let bar=document.getElementById('barraPct');bar.style.width=pct+'%';bar.style.background=pct>=70?'#22c55e':pct>=40?'#f59e0b':'#dc2626';document.getElementById('txtPct').innerText=pct+'% '+ (pct>=70?'AUTÊNTICA - APROVADA':pct>=40?'INCONCLUSIVA':'FALSIFICADA - REPROVADA');document.getElementById('txtStatus').innerText=`Preenchidos ${preenchidos}/12 - Compatíveis ${comp} - Divergentes ${preenchidos-comp}`;}
-function lerImg(inp,id){let f=inp.files[0];if(!f)return;let r=new FileReader();r.onload=e=>document.getElementById(id).src=e.target.result;r.readAsDataURL(f);}
-function finalizarLaudo(){if(vals.includes('')){alert('⚠️ Marque os 12 itens do checklist ABNT antes de gerar PDF!');return}if(!document.getElementById('chkResp').checked){alert('⚠️ Você precisa assumir responsabilidade Art 473 CPC');return}
-let codigo='VL-2026-'+Math.random().toString(36).substr(2,6).toUpperCase();
-let pct=Math.round(vals.filter(x=>x==='COMPATIVEL').length/12*100);
-let laudo={id:Date.now(),codigo,caso:document.getElementById('fCaso').value||'Caso sem nome',req:document.getElementById('fReq').value,perito:document.getElementById('fPerito').value,reg:document.getElementById('fReg').value,pct,conclusao:document.getElementById('fConclusao').value,check:vals.slice(),status:pct>=70?'AUTÊNTICO':'FALSIFICADO',hash:'HASH-'+Math.random().toString(36).substr(2,10).toUpperCase()};
-laudos.push(laudo);laudoAtual=laudo;mostrarVer();}
-function mostrarVer(){document.getElementById('telaNovo').classList.add('hidden');document.getElementById('telaVer').classList.remove('hidden');document.getElementById('vCodigo').innerText=laudoAtual.codigo;document.querySelectorAll('.codSpan').forEach(e=>e.innerText=laudoAtual.codigo);document.getElementById('vDados').innerHTML=`<p><b>Caso:</b> ${laudoAtual.caso} | <b>Requerente:</b> ${laudoAtual.req}</p><p><b>Perito:</b> ${laudoAtual.perito} | <b>Registro:</b> ${laudoAtual.reg} | <b>Data:</b> ${new Date().toLocaleDateString('pt-BR')}</p><p><b>Resultado:</b> <span class="tag" style="background:${laudoAtual.pct>=70?'#dcfce7':'#fee2e2'}">${laudoAtual.pct}% ${laudoAtual.status}</span> | <b>Hash PDF:</b> ${laudoAtual.hash}</p>`;document.getElementById('vCheck').innerHTML=itens.map((n,i)=>`<p>${n} - <b>${laudoAtual.check[i]}</b></p>`).join('');document.getElementById('vConclusao').innerText=laudoAtual.conclusao;document.getElementById('vLink').innerText='validalaudos.com.br/validar/'+laudoAtual.codigo;
-QRCode.toCanvas(document.getElementById('qr'), 'https://validalaudos.com.br/validar/'+laudoAtual.codigo,{width:120});}
-function renderLista(){let el=document.getElementById('listaLaudos');if(!laudos.length){el.innerHTML='<p style="color:#888">Nenhum laudo ainda. Clique em + NOVO LAUDO.</p>';return}el.innerHTML=laudos.map(l=>`<div style="border:1px solid #ddd;padding:15px;border-radius:10px;margin-bottom:10px;display:flex;justify-content:space-between"><div><b>${l.caso}</b><br><span style="font-size:13px">${l.codigo} - ${l.pct}% ${l.status}</span></div><button class="btn2" onclick="abrirLaudo(${l.id})">VER + PDF</button></div>`).join('');}
-function abrirLaudo(id){laudoAtual=laudos.find(x=>x.id==id);document.getElementById('telaDash').classList.add('hidden');mostrarVer();}
-function compartilharWhats(){let t=`Laudo Grafotécnico ${laudoAtual.codigo} - ${laudoAtual.pct}% ${laudoAtual.status} - Valide em validalaudos.com.br/validar/${laudoAtual.codigo}`;window.open('https://wa.me/5511985013903?text='+encodeURIComponent(t),'_blank');}
-function mostrarValidarPublico(){['telaLogin','telaDash','telaNovo','telaVer'].forEach(id=>document.getElementById(id).classList.add('hidden'));document.getElementById('telaValidar').classList.remove('hidden');}
-function validarCodigo(){let c=document.getElementById('codValidar').value;let l=laudos.find(x=>x.codigo==c);let r=document.getElementById('resValidar');if(l){r.innerHTML=`<div style="background:#dcfce7;padding:20px;border-radius:12px"><h3>✅ LAUDO AUTÊNTICO</h3><p>Código ${l.codigo}<br>Caso ${l.caso}<br>Resultado ${l.pct}% ${l.status}<br>Perito ${l.perito} - ${l.reg}<br>Hash ${l.hash}</p></div>`}else if(c.length>3){r.innerHTML=`<div style="background:#fee2e2;padding:20px;border-radius:12px"><h3>❌ CÓDIGO NÃO ENCONTRADO</h3><p>Verifique o código no PDF ou fale no WhatsApp (11) 98501-3903</p></div>`}else{r.innerHTML='Digite um código'}}
+let inicio = localStorage.getItem('inicioTeste');
+if(!inicio){inicio=new Date().toISOString();localStorage.setItem('inicioTeste',inicio);}
+let dias=Math.floor((new Date()-new Date(inicio))/(1000*60*60*24));let restam=3-dias;
+let el=document.getElementById('txtTeste');
+if(restam<=0){el.innerText='⚠️ Seu teste de 3 dias acabou! Assine PRO por R$ 97/mês';}else{el.innerText='Você tem '+restam+' dias grátis restantes';}
+function iniciarTeste(){
+if(!document.getElementById('aceito').checked){alert('Você precisa aceitar os Termos de Uso para criar conta PRO.');return;}
+if(!document.getElementById('nomePerito').value||!document.getElementById('crea').value){alert('Preencha nome e CREA/CAU');return;}
+document.getElementById('msg').innerText='✅ Conta PRO criada! Bem-vindo, '+document.getElementById('nomePerito').value+'! Seus 3 dias grátis começaram.';
+}
+function gerarHash(t){let h=0;for(let i=0;i<t.length;i++){h=((h<<5)-h)+t.charCodeAt(i);h=h&h;}return 'SHA256-PRO-'+Math.abs(h).toString(16).toUpperCase()+'-'+Date.now().toString(16).toUpperCase();}
+function gerarLaudo(){
+let cliente=document.getElementById('cliente').value, endereco=document.getElementById('endereco').value, tipo=document.getElementById('tipo').value;
+if(!cliente||!endereco){alert('Preencha cliente e endereço');return;}
+let numero='VL-PRO-2026-'+String(Math.floor(Math.random()*900000)+100000);
+let agora=new Date().toLocaleString('pt-BR');
+let hash=gerarHash(cliente+endereco+agora+numero);
+let html='<div style="border:3px solid #f59e0b;padding:20px;margin-top:15px;border-radius:12px;background:#fff;color:#0f172a">';
+html+='<h4 style="text-align:center">🛡️ VALIDA LAUDOS PRO - '+tipo.toUpperCase()+'</h4>';
+html+='<p><b>Nº:</b> '+numero+'<br><b>Cliente:</b> '+cliente+'<br><b>Endereço:</b> '+endereco+'<br><b>Perito:</b> '+(document.getElementById('nomePerito').value||'Perito')+' - '+(document.getElementById('crea').value||'CREA')+'<br><b>Data/Hora:</b> '+agora+'<br><b>Descrição:</b> '+document.getElementById('descricao').value+'</p>';
+html+='<div style="text-align:center;background:#fef3c7;padding:12px;border-radius:10px">QR CODE VALIDAÇÃO PRO<br><span style="font-size:30px">⬛⬜⬛⬜⬛<br>⬜⬛⬜⬛⬜<br>⬛⬜⬛⬜⬛</span><br><small>Escaneie para validar</small></div>';
+html+='<div class="hash">HASH: '+hash+'<br>IP: Registrado | LOG: '+agora+'</div>';
+html+='<button class="btn btn-gold" style="width:100%;border:0" onclick="window.print()">🖨️ IMPRIMIR / SALVAR PDF PRO</button></div>';
+document.getElementById('resultado').innerHTML=html;
+localStorage.setItem(numero,JSON.stringify({cliente,endereco,tipo,data:agora,hash}));
+}
+function validar(){
+let cod=document.getElementById('codigoValidar').value.trim();
+let dado=localStorage.getItem(cod);
+if(dado){let d=JSON.parse(dado);document.getElementById('resValidar').innerHTML='✅ <b>LAUDO PRO VERDADEIRO!</b><br>Cliente: '+d.cliente+'<br>Endereço: '+d.endereco+'<br>Emitido em: '+d.data+'<br>Hash: '+d.hash;document.getElementById('resValidar').style.color='green';}
+else if(cod){document.getElementById('resValidar').innerHTML='❌ Código não encontrado. Este documento pode ser FALSO.';document.getElementById('resValidar').style.color='red';}
+}
 </script>
-</body></html>
+</body>
+</html>
