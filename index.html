@@ -18,29 +18,24 @@ canvas#sigCanvas{background:#fff;border-radius:12px;width:100%;height:150px;touc
 </style>
 </head>
 <body class="p-4 max-w-3xl mx-auto">
-
-<!-- TOPO -->
 <div class="text-center mb-4">
 <h1 class="text-3xl font-black gold">VALIDA LAUDOS PRO</h1>
 <p class="text-sm opacity-80">Laudo Grafotécnico - ABNT NBR 16505 | CPC Art. 156 e 473</p>
-<div class="bg-yellow-400 text-black font-bold rounded-full inline-block px-4 py-1 mt-2 text-xs">✅ VERSÃO 4.0 - PDF COMPLETO APRESENTÁVEL</div>
+<div class="bg-yellow-400 text-black font-bold rounded-full inline-block px-4 py-1 mt-2 text-xs">✅ VERSÃO 4.1 - CAMPOS VAZIOS</div>
 </div>
 
-<!-- DADOS PERITO -->
 <div class="card mb-4">
 <h2 class="gold font-bold">1. DADOS DO PERITO</h2>
-<label>Nome do Perito</label><input id="nomePerito" class="input" value="Carlos Eduardo Almeida" placeholder="Nome completo">
-<label class="mt-2 block">CREA / CAU</label><input id="creaPerito" class="input" value="SP5061234567" placeholder="Ex: SP5061234567">
+<label>Nome do Perito</label><input id="nomePerito" class="input" value="" placeholder="Ex: Carlos Eduardo Almeida">
+<label class="mt-2 block">CREA / CAU</label><input id="creaPerito" class="input" value="" placeholder="Ex: SP5061234567">
 </div>
 
-<!-- DADOS CLIENTE -->
 <div class="card mb-4">
 <h2 class="gold font-bold">2. DADOS DO CLIENTE</h2>
-<label>Nome do Cliente</label><input id="nomeCliente" class="input" value="João da Silva" placeholder="Nome do cliente">
-<label class="mt-2 block">Nº do Processo</label><input id="numProcesso" class="input" value="1001234-56.2024.8.26.0100" placeholder="Nº do processo">
+<label>Nome do Cliente</label><input id="nomeCliente" class="input" value="" placeholder="Ex: João da Silva">
+<label class="mt-2 block">Nº do Processo</label><input id="numProcesso" class="input" value="" placeholder="Ex: 1001234-56.2024.8.26.0100">
 </div>
 
-<!-- FOTOS -->
 <div class="card mb-4">
 <h2 class="gold font-bold">3. FOTOS - ASSINATURA QUESTIONADA + PADRÕES</h2>
 <p class="text-xs opacity-70 mb-2">Selecione no mínimo 2 fotos. A 1ª é a Questionada, as outras são Padrões.</p>
@@ -49,7 +44,6 @@ canvas#sigCanvas{background:#fff;border-radius:12px;width:100%;height:150px;touc
 <div class="mt-2 text-sm">Total de fotos: <b id="totalFotos">0</b> <span id="msgFotos" class="text-yellow-300"></span></div>
 </div>
 
-<!-- CHECKLIST 12 PONTOS -->
 <div class="card mb-4">
 <h2 class="gold font-bold">4. ANÁLISE COMPARATIVA - 12 PONTOS ABNT</h2>
 <p class="text-xs opacity-70 mb-3">Marque cada ponto: Convergente = Igual | Divergente = Diferente | Inconclusivo = Não dá pra ver</p>
@@ -60,7 +54,6 @@ canvas#sigCanvas{background:#fff;border-radius:12px;width:100%;height:150px;touc
 </div>
 </div>
 
-<!-- ASSINATURA -->
 <div class="card mb-4">
 <h2 class="gold font-bold">5. ASSINATURA DO PERITO</h2>
 <p class="text-xs opacity-70 mb-2">Assine com o dedo ou mouse dentro do quadro branco</p>
@@ -68,32 +61,28 @@ canvas#sigCanvas{background:#fff;border-radius:12px;width:100%;height:150px;touc
 <div class="flex gap-2 mt-2"><button onclick="limparSig()" class="bg-red-600 px-4 py-2 rounded-lg flex-1">Limpar</button><button onclick="salvarSig()" class="bg-green-600 px-4 py-2 rounded-lg flex-1">Salvar Assinatura</button></div>
 </div>
 
-<!-- TERMO -->
 <div class="card mb-4">
 <label class="flex gap-2 items-start text-sm"><input type="checkbox" id="termo" checked class="mt-1"><span>Declaro que realizei o exame com imparcialidade, sem interesse na causa, conforme Art. 156 CPC. Responsabilizo-me integralmente pelo laudo emitido.</span></label>
 <div class="mt-3 flex gap-2">
 <button onclick="gerarCodigo()" class="bg-blue-600 px-4 py-2 rounded-lg flex-1 font-bold">1. Gerar Código</button>
-<button onclick="gerarPDF()" class="btn-gold flex-1">2. GERAR PDF V4.0 📄</button>
+<button onclick="gerarPDF()" class="btn-gold flex-1">2. GERAR PDF V4.1 📄</button>
 </div>
 <div id="resultado" class="mt-3"></div>
 <div id="qrcode" class="mt-3 flex justify-center bg-white p-3 rounded-xl"></div>
 </div>
 
-<!-- VALIDAÇÃO -->
 <div class="card text-center text-xs opacity-80">Valide em: validalaudos.vercel.app/validar/ <b id="codigoExibir">VL-000000</b><br>LGPD Lei 13.709/2018 - Dados protegidos - Valida Laudos PRO</div>
 
 <script>
-let totalFotosCount=0, windowCodigo='';
+let totalFotosCount=0;
 const itens=['Inclinação','Pressão','Velocidade','Forma das Letras','Ligações','Tamanho','Espaçamento','Caligrafia','Traço Inicial','Traço Final','Angulação','Proporção'];
 window.codigoAtual='VL-'+Math.floor(100000+Math.random()*899999);
-
 let checklistHtml='';
 itens.forEach((it,i)=>{
 checklistHtml+=`<div class="flex items-center justify-between gap-2 bg-black/20 p-2 rounded-lg"><span class="text-sm">${i+1}. ${it}</span><select id="c${i}" onchange="calcular()" class="text-black rounded-lg px-2 py-1 text-sm"><option value="conv">Convergente</option><option value="div">Divergente</option><option value="inc">Inconclusivo</option></select></div>`;
 });
 document.getElementById('checklist').innerHTML=checklistHtml;
 document.getElementById('codigoExibir').innerText=window.codigoAtual;
-
 function calcular(){
 let div=0; for(let i=0;i<12;i++){ if(document.getElementById('c'+i).value=='div') div++; }
 document.getElementById('pontosDiv').innerText='Divergentes: '+div+' de 12';
@@ -104,13 +93,11 @@ else { pct='90%'; txt='ALTA - ALTA DIVERGÊNCIA'; }
 document.getElementById('pct').innerText=pct; document.getElementById('txtPct').innerText=txt;
 }
 calcular();
-
 document.getElementById('fotoInput').addEventListener('change',function(e){
 const preview=document.getElementById('fotosPreview'); preview.innerHTML=''; totalFotosCount=0;
 Array.from(e.target.files).forEach((file,idx)=>{
 const r=new FileReader(); r.onload=(ev)=>{
 const img=document.createElement('img'); img.src=ev.target.result; img.className='preview-foto';
-img.title = idx==0 ? 'Questionada' : 'Padrão '+idx;
 preview.appendChild(img); totalFotosCount++;
 document.getElementById('totalFotos').innerText=totalFotosCount;
 document.getElementById('msgFotos').innerText = totalFotosCount>=2 ? '✅ OK - Pode gerar' : '⚠️ Selecione pelo menos 2';
@@ -118,7 +105,6 @@ document.getElementById('msgFotos').innerText = totalFotosCount>=2 ? '✅ OK - P
 r.readAsDataURL(file);
 });
 });
-
 const cv=document.getElementById('sigCanvas'); const ctx=cv.getContext('2d'); let drawing=false;
 function getPos(e){ const r=cv.getBoundingClientRect(); const t=e.touches?e.touches[0]:e; return {x:(t.clientX-r.left)*(cv.width/r.width), y:(t.clientY-r.top)*(cv.height/r.height)}; }
 cv.addEventListener('mousedown',e=>{drawing=true; const p=getPos(e); ctx.beginPath(); ctx.moveTo(p.x,p.y);});
@@ -131,27 +117,21 @@ function limparSig(){ ctx.clearRect(0,0,cv.width,cv.height); }
 function salvarSig(){ alert('Assinatura salva!'); }
 function gerarCodigo(){ window.codigoAtual='VL-'+Math.floor(100000+Math.random()*899999); document.getElementById('codigoExibir').innerText=window.codigoAtual; document.getElementById('resultado').innerHTML='<div class="bg-blue-600 p-3 rounded-xl">Novo código gerado: <b>'+window.codigoAtual+'</b></div>'; document.getElementById('qrcode').innerHTML=''; new QRCode(document.getElementById('qrcode'),{text:'https://validalaudos.vercel.app/validar/'+window.codigoAtual,width:120,height:120}); }
 
-// ============ PDF V4.0 COMPLETO - FOTOS + CHECKLIST + CONCLUSÃO + AUTENTICIDADE ============
 async function gerarPDF(){
   if(!document.getElementById('termo').checked){ alert('Marque o termo de responsabilidade!'); return; }
   if(!document.getElementById('nomePerito').value || !document.getElementById('creaPerito').value){ alert('Preencha nome e CREA do perito!'); return; }
   if(totalFotosCount < 2){ alert('Selecione pelo menos 2 fotos! Atual: '+totalFotosCount); return; }
-
   const { jsPDF } = window.jspdf; const doc = new jsPDF();
   const agora = new Date();
   const dataHoje = agora.toLocaleDateString('pt-BR');
   const horaHoje = agora.toLocaleTimeString('pt-BR');
   const hash = btoa(window.codigoAtual + document.getElementById('pct').innerText + horaHoje).slice(0,24);
-  
   let divCount=0; let checklist=[];
   for(let i=0;i<12;i++){ let v=document.getElementById('c'+i).value; if(v=='div') divCount++; checklist.push([itens[i], v.toUpperCase()]); }
-
   let conclusao, viab, conclusaoTitulo;
   if(divCount<=4){ conclusao='Diante do exame comparativo realizado, verifica-se que a assinatura questionada apresenta convergencia grafica com os padroes examinados em todos os elementos analisados. Nao foram observadas divergencias significativas. Conclui-se pela autenticidade da assinatura.'; viab='30% - BAIXA - AUTENTICA'; conclusaoTitulo='CONCLUSAO: AUTENTICA'; }
   else if(divCount<=8){ conclusao='Diante do exame comparativo, observam-se divergencias significativas entre a assinatura questionada e os padroes em '+divCount+' dos 12 elementos analisados. Recomenda-se analise complementar com o documento original para confirmacao definitiva.'; viab='60% - MEDIA - SUSPEITA'; conclusaoTitulo='CONCLUSAO: SUSPEITA - RECOMENDA-SE ANALISE COMPLEMENTAR'; }
   else { conclusao='Diante do exame comparativo, verifica-se alta divergencia entre a assinatura questionada e os padroes examinados em '+divCount+' dos 12 elementos analisados, indicando que a assinatura questionada nao apresenta convergencia grafica com os padroes fornecidos.'; viab='90% - ALTA - ALTA DIVERGENCIA'; conclusaoTitulo='CONCLUSAO: ALTA DIVERGENCIA - NAO CONVERGENTE'; }
-
-  // PAGINA 1 - CAPA
   doc.setFillColor(11,30,58); doc.rect(0,0,210,32,'F');
   doc.setTextColor(255,199,0); doc.setFontSize(18); doc.text('VALIDA LAUDOS PRO', 20, 18);
   doc.setTextColor(255,255,255); doc.setFontSize(9); doc.text('LAUDO GRAFOTECNICO - ABNT NBR 16505 | CPC Art. 156 e 473', 20, 26);
@@ -168,8 +148,6 @@ async function gerarPDF(){
   doc.setFillColor(255,199,0); doc.rect(20,127,170,12,'F'); doc.setFontSize(11); doc.text('VIABILIDADE: '+viab, 25, 135);
   doc.setFontSize(10); doc.text('METODOLOGIA', 20, 150);
   doc.setFontSize(9); doc.text('Metodologia: Exame comparativo direto, luz natural e ampliada 10x, conforme ABNT NBR 16505 e Manual de Pericia Grafotecnica. Analise dos 12 elementos graficos padronizados.', 20, 157, {maxWidth:170});
-
-  // PAGINA 2 - CHECKLIST + FOTOS
   doc.addPage();
   doc.setFontSize(13); doc.text('1. ANALISE COMPARATIVA - 12 PONTOS ABNT', 20, 20);
   doc.setFontSize(10); let y=30;
@@ -180,8 +158,6 @@ async function gerarPDF(){
   imgs.forEach(img=>{ 
     try{ doc.addImage(img.src,'JPEG',x,y,40,38); doc.setFontSize(7); doc.text('Foto '+fotoNum+' - '+(fotoNum==1?'Questionada':'Padrao '+(fotoNum-1)), x, y+43); x+=45; fotoNum++; if(x>160){ x=20; y+=50; } }catch(e){}
   });
-
-  // PAGINA 3 - CONCLUSAO + ASSINATURA
   doc.addPage();
   doc.setFontSize(13); doc.text('3. CONCLUSAO FINAL DO PERITO', 20, 20);
   doc.setFillColor(220,255,220); doc.rect(20,26,170,10,'F'); doc.setFontSize(11); doc.text(conclusaoTitulo, 22, 33);
@@ -195,9 +171,8 @@ async function gerarPDF(){
   y2+=26; doc.setFontSize(10); doc.text(document.getElementById('nomePerito').value+' - '+document.getElementById('creaPerito').value, 20, y2); y2+=12;
   doc.setFontSize(8); doc.text('Documento gerado por Valida Laudos PRO. Responsabilidade exclusiva do perito assinante - Art. 156 e 473 CPC. LGPD Lei 13.709/2018 - Dados protegidos.', 20, y2, {maxWidth:170}); y2+=8;
   doc.text('Valide a autenticidade em: validalaudos.vercel.app/validar/'+window.codigoAtual+' | Hash: '+hash, 20, y2, {maxWidth:170});
-
   doc.save('Laudo-'+window.codigoAtual+'.pdf');
-  document.getElementById('resultado').innerHTML='<div class="bg-green-600 p-4 rounded-xl">✅ PDF V4.0 GERADO! 3 paginas - Fotos + Checklist + Conclusao + Autenticidade - Codigo '+window.codigoAtual+'</div>';
+  document.getElementById('resultado').innerHTML='<div class="bg-green-600 p-4 rounded-xl">✅ PDF V4.1 GERADO! 3 paginas - Campos vazios corrigidos - Codigo '+window.codigoAtual+'</div>';
   document.getElementById('qrcode').innerHTML=''; new QRCode(document.getElementById('qrcode'), {text:'https://validalaudos.vercel.app/validar/'+window.codigoAtual, width:120, height:120});
 }
 </script>
