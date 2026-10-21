@@ -3,153 +3,79 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Valida Laudos PRO - Gere em minutos, receba mais nomeações</title>
+<title>Valida Laudos PRO - Gere Laudos em Minutos</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&family=Manrope:wght@700;800&display=swap" rel="stylesheet">
 <style>
-body{font-family:Inter,system-ui;background:#0B1E3A;color:#fff}
-.gold{color:#FFC700}
-.btn-gold{background:#FFC700;color:#0B1E3A;font-weight:800}
-.card{background:#132F57;border:1px solid #1E4A7A;border-radius:16px}
-input,textarea,select{background:#0B1E3A!important;border:1px solid #2A5A9A!important;color:#fff!important;border-radius:10px;padding:12px;width:100%}
-canvas#assinatura{border:2px dashed #FFC700;background:#fff;border-radius:12px;touch-action:none}
+body{font-family:'Inter',system-ui;background:#0A1931;color:#fff}
+h1,h2{font-family:'Manrope',sans-serif}
+.blue-grad{background:linear-gradient(135deg,#2563EB,#38BDF8)}
+.card{background:#13294B;border:1px solid #1E3A5F;border-radius:16px}
+input,textarea{background:#0A1931!important;border:1px solid #2A4A7A!important;color:#fff!important;border-radius:10px;padding:12px;width:100%}
+select{background:#E0F2FE!important;color:#0A1931!important;font-weight:800!important;border-radius:10px;padding:12px;width:100%}
+canvas#assinatura{border:2px dashed #38BDF8;background:#fff;border-radius:12px;touch-action:none;cursor:crosshair}
+.preview-foto{width:110px;height:110px;object-fit:cover;border-radius:10px;border:2px solid #38BDF8}
+.whats-float{position:fixed;bottom:20px;right:20px;width:60px;height:60px;background:#25D366;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:30px;z-index:999}
+.foto-box{background:rgba(0,0,0,.3);border:2px dashed #38BDF8;border-radius:12px;padding:12px;text-align:center}
+.hidden{display:none!important}
 </style>
 </head>
 <body>
-
-<!-- HEADER -->
-<header class="p-5 flex justify-between items-center max-w-6xl mx-auto">
-  <div class="font-black text-xl">VALIDA <span class="gold">LAUDOS</span> PRO</div>
-  <a href="https://mpago.la/1kPLRYH" class="btn-gold px-5 py-2 rounded-full text-sm">ASSINAR R$ 97/mês</a>
-</header>
-
-<!-- HERO - NOVA FRASE -->
-<section class="text-center py-10 px-5 max-w-3xl mx-auto">
-  <div class="bg-yellow-400 text-black inline-block px-3 py-1 rounded-full text-xs font-bold">PERITO QUE ENTREGA RÁPIDO RECEBE MAIS NOMEAÇÕES</div>
-  <h1 class="text-4xl md:text-5xl font-black mt-4 leading-tight">Gere laudos em <span class="gold">minutos.</span><br>Receba mais nomeações.</h1>
-  <p class="text-gray-300 mt-4">De horas pra minutos. Sem Word, sem formatação, sem retrabalho. O Valida Laudos monta tudo, valida com QR Code + Hash e você entrega antes do prazo.</p>
-  <div class="flex gap-3 justify-center mt-6">
-    <button onclick="document.getElementById('app').scrollIntoView()" class="btn-gold px-6 py-3 rounded-full">TESTAR 3 DIAS GRÁTIS</button>
-    <button onclick="verExemplo()" class="border border-white px-6 py-3 rounded-full">Ver laudo exemplo</button>
-  </div>
-  <div class="grid grid-cols-3 gap-3 mt-8 text-center">
-    <div class="card p-4"><div class="text-2xl font-black gold">12 min</div><div class="text-xs">Tempo médio por laudo</div></div>
-    <div class="card p-4"><div class="text-2xl font-black gold">100%</div><div class="text-xs">Validado com QR Code</div></div>
-    <div class="card p-4"><div class="text-2xl font-black gold">R$ 97</div><div class="text-xs">/mês - Ilimitado</div></div>
-  </div>
+<a href="https://wa.me/5511985013903?text=Quero%20assinar%20o%20Valida%20Laudos%20PRO" target="_blank" class="whats-float">💬</a>
+<div id="landing">
+<header class="p-5 flex justify-between items-center max-w-6xl mx-auto"><div class="flex items-center gap-2"><div style="width:40px;height:40px;background:#2563EB;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:22px">🛡️</div><div class="font-black text-xl leading-none">VALIDA<br><span style="color:#38BDF8">LAUDOS PRO</span></div></div><a href="https://mpago.la/1kPLRYH" target="_blank" class="blue-grad px-5 py-2 rounded-full text-sm font-bold">ASSINAR R$ 97/mês</a></header>
+<section class="text-center py-10 px-5 max-w-4xl mx-auto">
+<div class="bg-blue-500/20 border border-blue-400 inline-block px-4 py-1 rounded-full text-xs font-bold text-blue-200">ANÁLISE PERICIAL FORENSE AUTOMATIZADA</div>
+<h1 class="text-5xl md:text-6xl font-black mt-4 leading-tight">GERE LAUDOS<br>EM MINUTOS</h1>
+<p class="text-blue-100 mt-4 max-w-2xl mx-auto">Análise pericial forense automatizada com segurança, precisão e validade jurídica em poucos cliques. Ideal para advogados, peritos e empresas.</p>
+<div class="grid grid-cols-3 gap-3 mt-8"><div class="card p-4"><div class="text-2xl font-black text-blue-300">12 min</div><div class="text-xs">Tempo médio</div></div><div class="card p-4"><div class="text-2xl font-black text-blue-300">100%</div><div class="text-xs">Validado QR</div></div><div class="card p-4"><div class="text-2xl font-black text-blue-300">AES-256</div><div class="text-xs">Segurança</div></div></div>
+<div class="flex gap-3 justify-center mt-6 flex-wrap"><button onclick="mostrarLogin()" class="blue-grad px-6 py-3 rounded-full font-bold">Gerar Laudo Agora →</button><button onclick="mostrarLogin()" class="border border-white px-6 py-3 rounded-full">🔐 ENTRAR</button><a href="https://wa.me/5511985013903" target="_blank" class="bg-green-500 px-6 py-3 rounded-full font-bold">WhatsApp</a></div>
+<div class="flex gap-6 justify-center mt-6 text-xs text-blue-200 flex-wrap"><span>✔ Assinatura Digital ICP-Brasil</span><span>✔ Seguro & LGPD</span><span>✔ Laudo em Minutos</span></div>
 </section>
-
-<!-- APP -->
-<div id="app" class="max-w-4xl mx-auto p-5">
-  <div class="card p-6">
-    <h2 class="font-black text-xl">📋 NOVO LAUDO - PASSO 1: DADOS DO PERITO <span class="text-red-400">*</span></h2>
-    <p class="text-sm text-gray-400">Obrigatório para proteger você e o perito. Sem CREA e assinatura não gera PDF.</p>
-    <div class="grid md:grid-cols-2 gap-3 mt-4">
-      <input id="nomePerito" placeholder="Nome completo do perito *">
-      <input id="creaPerito" placeholder="CREA / CAU - Ex: CREA-SP 123456 *">
-      <input id="nomeCliente" placeholder="Nome do cliente">
-      <input id="numProcesso" placeholder="Nº Processo (opcional)">
-    </div>
-    
-    <h3 class="font-bold mt-6">✍️ Assine com o dedo ou mouse *</h3>
-    <canvas id="assinatura" width="600" height="150" class="w-full mt-2"></canvas>
-    <button onclick="limparAssinatura()" class="text-xs underline mt-1">Limpar assinatura</button>
-
-    <h2 class="font-black text-xl mt-8">📸 PASSO 2: FOTOS - GUIA DE COLETA</h2>
-    <div class="bg-yellow-400/10 border border-yellow-400 p-4 rounded-xl text-sm mt-3">
-      <b class="gold">⚠️ ANTES DE SUBIR: FAÇA CERTO PRA NÃO TER RETRABALHO</b><br>
-      ✅ 1. Use luz natural, sem sombra<br>
-      ✅ 2. Chegue perto, foto reta, não torta<br>
-      ✅ 3. Coloque uma régua do lado da assinatura<br>
-      ✅ 4. Foto nítida - se borrar, tire de novo
-    </div>
-    <div class="grid md:grid-cols-2 gap-3 mt-4">
-      <div><label class="text-sm">Assinatura Questionada *</label><input type="file" id="foto1" accept="image/*"></div>
-      <div><label class="text-sm">Assinaturas Padrão (3 a 5)</label><input type="file" id="foto2" multiple accept="image/*"></div>
-    </div>
-    <div id="previewFotos" class="flex gap-2 mt-3 flex-wrap"></div>
-
-    <h2 class="font-black text-xl mt-8">✅ PASSO 3: CHECKLIST ABNT - 12 PONTOS</h2>
-    <div id="checklist" class="grid md:grid-cols-2 gap-2 mt-3"></div>
-
-    <div class="mt-6 p-4 bg-black/30 rounded-xl flex justify-between items-center">
-      <div><b>Viabilidade:</b> <span id="pct">0%</span><br><span id="txtPct" class="text-sm text-gray-300">Marque os pontos acima</span></div>
-      <div id="hashBox" class="text-xs break-all"></div>
-    </div>
-
-    <label class="flex gap-2 mt-5 text-sm"><input type="checkbox" id="termo" class="w-5 h-5"> <span>Declaro que assumo total responsabilidade técnica pelo laudo (Art 156 e 473 CPC). O Valida Laudos é apenas ferramenta, não realiza análise de autenticidade por IA.</span></label>
-
-    <div class="flex gap-3 mt-6">
-      <button onclick="previewLaudo()" class="flex-1 bg-white text-black font-bold py-3 rounded-full">👁️ PRÉ-VISUALIZAR ANTES DE GERAR</button>
-      <button onclick="gerarPDF()" class="flex-1 btn-gold py-3 rounded-full">🚀 GERAR PDF COM QR CODE</button>
-    </div>
-    <div id="qrcode" class="mt-5 flex justify-center"></div>
-    <div id="resultado" class="mt-4"></div>
-  </div>
-
-  <!-- PREVIEW -->
-  <div id="previewArea" class="hidden card p-6 mt-5 bg-white text-black">
-    <h3 class="font-black">PRÉ-VISUALIZAÇÃO DO LAUDO</h3>
-    <div id="previewContent" class="text-sm mt-3"></div>
-    <button onclick="fecharPreview()" class="mt-3 underline text-sm">Fechar preview</button>
-  </div>
-
-  <p class="text-center text-xs text-gray-500 mt-8">Valida Laudos PRO - Desenvolvido por Douglas Almeida - Ferramenta de apoio ao perito. Responsabilidade técnica exclusiva do perito assinante. LGPD Lei 13.709/2018 | Termos de Uso disponíveis.</p>
 </div>
-
+<div id="login" class="hidden max-w-md mx-auto p-6"><div class="card p-6 text-center"><h2 class="font-black text-2xl">🔐 LOGIN PERITO</h2><div id="msgLogin"></div><input id="u" placeholder="Usuário: perito" class="mt-4"><input id="p" type="password" placeholder="Senha: 1234" class="mt-3"><button onclick="logar()" class="blue-grad w-full py-3 rounded-full mt-4 font-bold">ENTRAR →</button><button onclick="voltar()" class="underline text-sm mt-3">Voltar</button></div></div>
+<div id="app" class="hidden max-w-4xl mx-auto p-5">
+<div class="flex justify-between items-center"><h1 class="font-black text-xl">🛡️ VALIDA <span style="color:#38BDF8">LAUDOS</span> PRO</h1><button onclick="voltar()" class="bg-red-600 px-3 py-2 rounded-lg text-sm">Sair</button></div>
+<div class="card p-6 mt-4"><h2 class="font-black text-blue-300">📋 PASSO 1 - DADOS DO PERITO *</h2><div class="grid md:grid-cols-2 gap-3 mt-3"><input id="nomePerito" placeholder="Nome completo do perito *"><input id="creaPerito" placeholder="CREA / CAU *"><input id="nomeCliente" placeholder="Nome do cliente"><input id="numProcesso" placeholder="Nº Processo" oninput="masc(this)"></div><h3 class="font-bold mt-4">✍️ Assine com o dedo ou mouse *</h3><canvas id="assinatura" width="600" height="150" class="w-full mt-2"></canvas><button onclick="limpar()" class="underline text-sm">Limpar assinatura</button></div>
+<div class="card p-6 mt-4"><h2 class="font-black text-blue-300">📸 PASSO 2 - FOTOS - GUIA DE COLETA</h2><div class="bg-blue-500/10 border border-blue-400 p-4 rounded-xl text-sm mt-3">✅ Use luz natural, sem sombra<br>✅ Chegue perto, foto reta<br>✅ Régua do lado da assinatura<br>✅ Nítida - se borrar, tire de novo</div><div class="grid md:grid-cols-2 gap-3 mt-3"><div class="foto-box"><b>FOTO 1 QUESTIONADA *</b><br><input type="file" accept="image/*" onchange="foto(this,1)"><div id="prev1" class="flex justify-center mt-2"></div></div><div class="foto-box"><b>FOTO 2 PADRÃO *</b><br><input type="file" accept="image/*" onchange="foto(this,2)"><div id="prev2" class="flex justify-center mt-2"></div></div><div class="foto-box"><b>FOTO 3 PADRÃO</b><br><input type="file" accept="image/*" onchange="foto(this,3)"><div id="prev3" class="flex justify-center mt-2"></div></div><div class="foto-box"><b>FOTO 4 PADRÃO</b><br><input type="file" accept="image/*" onchange="foto(this,4)"><div id="prev4" class="flex justify-center mt-2"></div></div></div><div class="text-center mt-2">Total: <b id="tot">0</b> <span id="msgF"></span></div></div>
+<div class="card p-6 mt-4"><h2 class="font-black text-blue-300">✅ PASSO 3 - CHECKLIST ABNT 12 PONTOS</h2><div id="checklist" class="grid md:grid-cols-2 gap-2 mt-3"></div><div class="mt-4 p-4 bg-black/30 rounded-xl"><b>Viabilidade:</b> <span id="pct">30%</span> - <span id="txtPct">BAIXA</span> - <span id="divs">0 de 12</span><div id="hashBox" class="text-xs"></div></div></div>
+<div class="card p-6 mt-4"><h2 class="font-black text-blue-300">📝 PASSO 4 - CONCLUSÃO DO PERITO *</h2><p class="text-sm text-blue-200 mt-2">Escreva com suas palavras. Essa é a sua responsabilidade técnica. Sem isso o PDF não gera.</p><textarea id="conclusaoPerito" rows="5" placeholder="Ex: Diante do confronto grafoscópico realizado, observou-se convergência nos elementos de pressão, inclinação e velocidade... Concluo pela autenticidade da assinatura questionada..." class="mt-2"></textarea></div>
+<div class="card p-6 mt-4"><h2 class="font-black text-blue-300">🚀 FINALIZAR</h2><label class="flex gap-2 mt-3 text-sm"><input type="checkbox" id="termo" checked class="w-5 h-5"><span>Declaro responsabilidade técnica Art 156 e 473 CPC. LGPD 13.709/2018.</span></label><div class="flex gap-3 mt-4"><button onclick="preview()" class="flex-1 bg-white text-black font-bold py-3 rounded-full">👁️ PREVIEW</button><button onclick="pdf()" class="flex-1 blue-grad py-3 rounded-full font-bold">🚀 GERAR PDF PREMIUM</button></div><div id="qrcode" class="mt-4 flex justify-center bg-white p-3 rounded-xl"></div><div id="res" class="mt-3"></div></div>
+<div id="prevArea" class="hidden card p-6 mt-4 bg-white text-black"><div id="prevC" class="text-sm"></div><button onclick="fecharPrev()" class="underline text-sm">Fechar</button></div>
+<p class="text-center text-xs opacity-60 mt-6">Valida Laudos PRO - Douglas Almeida - WhatsApp (11) 98501-3903 - PLANO B</p>
+</div>
 <script>
-const itens = ["Inclinação","Pressão e Traço","Alinhamento","Espaçamento","Proporção","Velocidade","Formato das Letras","Continuidade","Angulação","Peso do Traço","Tamanho e Escala","Caligrafia"];
-const cl = document.getElementById('checklist');
-itens.forEach((it,i)=>{
-  cl.innerHTML += `<label class="flex justify-between bg-white/5 p-3 rounded-xl text-sm">${it} <select onchange="calc()" id="c${i}"><option value="conv">Convergente</option><option value="div">Divergente</option><option value="inc">Inconclusivo</option></select></label>`;
-});
-function calc(){
-  let div=0; for(let i=0;i<12;i++){ if(document.getElementById('c'+i).value=='div') div++; }
-  let pct = div<=4?30:div<=8?60:90;
-  document.getElementById('pct').innerText=pct+'%';
-  document.getElementById('txtPct').innerText = div<=4?'VIABILIDADE BAIXA - Pouca divergência':div<=8?'VIABILIDADE MÉDIA':'VIABILIDADE ALTA - Forte divergência';
-  // Hash SHA simulado
-  const codigo = 'VL-'+Date.now().toString().slice(-6);
-  document.getElementById('hashBox').innerHTML = 'Código: <b>'+codigo+'</b><br>Hash: SHA256-'+btoa(codigo+div).slice(0,20);
-  window.codigoAtual=codigo;
-}
-calc();
-
-// Assinatura
-const cv=document.getElementById('assinatura'), ctx=cv.getContext('2d');
-let des=false; cv.addEventListener('pointerdown',e=>{des=true; ctx.beginPath(); ctx.moveTo(e.offsetX,e.offsetY)}); cv.addEventListener('pointermove',e=>{if(des){ctx.lineTo(e.offsetX,e.offsetY); ctx.stroke()}}); window.addEventListener('pointerup',()=>des=false);
-function limparAssinatura(){ ctx.clearRect(0,0,600,150); }
-
-function previewLaudo(){
-  if(!document.getElementById('nomePerito').value || !document.getElementById('creaPerito').value){ alert('FALTA: Preencha Nome do Perito e CREA/CAU - é obrigatório pra gerar!'); return; }
-  document.getElementById('previewArea').classList.remove('hidden');
-  document.getElementById('previewContent').innerHTML = `<b>LAUDO DE VISTORIA</b><br>Perito: ${document.getElementById('nomePerito').value}<br>CREA: ${document.getElementById('creaPerito').value}<br>Cliente: ${document.getElementById('nomeCliente').value}<br>Processo: ${document.getElementById('numProcesso').value}<br>Viabilidade: ${document.getElementById('pct').innerText}<br>Código: ${window.codigoAtual}<br><i>Assinatura e QR Code vão aparecer no PDF final</i>`;
-  document.getElementById('previewArea').scrollIntoView();
-}
-function fecharPreview(){ document.getElementById('previewArea').classList.add('hidden'); }
-function verExemplo(){ previewLaudo(); }
-
-async function gerarPDF(){
-  if(!document.getElementById('termo').checked){ alert('Marque o termo de responsabilidade!'); return; }
-  if(!document.getElementById('nomePerito').value || !document.getElementById('creaPerito').value){ alert('Preencha nome e CREA do perito!'); return; }
-  const { jsPDF } = window.jspdf; const doc = new jsPDF();
-  doc.setFontSize(18); doc.text('VALIDA LAUDOS PRO', 20, 20);
-  doc.setFontSize(12); doc.text('LAUDO DE VISTORIA - PERICIA', 20, 32);
-  doc.text('Perito: '+document.getElementById('nomePerito').value, 20, 45);
-  doc.text('CREA/CAU: '+document.getElementById('creaPerito').value, 20, 53);
-  doc.text('Cliente: '+document.getElementById('nomeCliente').value, 20, 61);
-  doc.text('Viabilidade: '+document.getElementById('pct').innerText, 20, 69);
-  doc.text('Codigo: '+window.codigoAtual, 20, 77);
-  doc.text('Assinatura do perito:', 20, 90);
-  const sig = cv.toDataURL('image/png'); doc.addImage(sig, 'PNG', 20, 95, 80, 20);
-  doc.setFontSize(9); doc.text('Documento gerado e validado por Valida Laudos PRO', 20, 130);
-  doc.text('Responsabilidade exclusiva do perito - Art 156 e 473 CPC', 20, 137);
-  doc.text('Valide em: validalaudos.vercel.app/validar/'+window.codigoAtual, 20, 145);
-  doc.save('Laudo-'+window.codigoAtual+'.pdf');
-  document.getElementById('resultado').innerHTML = '<div class="bg-green-600 p-4 rounded-xl">✅ PDF GERADO COM SUCESSO! Código '+window.codigoAtual+' - Validação: validalaudos.vercel.app/validar/'+window.codigoAtual+'</div>';
-  document.getElementById('qrcode').innerHTML='';
-  new QRCode(document.getElementById('qrcode'), {text:'https://validalaudos.vercel.app/validar/'+window.codigoAtual, width:120, height:120});
+let F={1:'',2:'',3:'',4:''};
+function mostrarLogin(){document.getElementById('landing').classList.add('hidden');document.getElementById('login').classList.remove('hidden')}
+function voltar(){document.getElementById('landing').classList.remove('hidden');document.getElementById('login').classList.add('hidden');document.getElementById('app').classList.add('hidden')}
+function logar(){let u=document.getElementById('u').value,p=document.getElementById('p').value;if((u=='perito'&&p=='1234')||(u=='teste'&&p=='teste')){document.getElementById('login').classList.add('hidden');document.getElementById('app').classList.remove('hidden')}else{document.getElementById('msgLogin').innerHTML='<div class="bg-red-600 p-2 rounded-lg mt-2">Usuário ou senha errada! Use perito / 1234</div>'}}
+function tot(){let c=0;for(let k in F){if(F[k]!='')c++}document.getElementById('tot').innerText=c;document.getElementById('msgF').innerText=c>=2?'✅ OK':'⚠️ Falta '+(2-c);return c}
+function foto(inp,n){if(!inp.files[0])return;let r=new FileReader();r.onload=e=>{F[n]=e.target.result;document.getElementById('prev'+n).innerHTML='<img src="'+e.target.result+'" class="preview-foto">';tot()};r.readAsDataURL(inp.files[0])}
+function masc(el){let v=el.value.replace(/\D/g,'');if(v.length>20)v=v.slice(0,20);let f='';if(v.length>0)f=v.substring(0,7);if(v.length>7)f+='-'+v.substring(7,9);if(v.length>9)f+='.'+v.substring(9,13);if(v.length>13)f+='.'+v.substring(13,14);if(v.length>14)f+='.'+v.substring(14,16);if(v.length>16)f+='.'+v.substring(16,20);el.value=f}
+const itens=["Inclinação","Pressão e Traço","Alinhamento","Espaçamento","Proporção","Velocidade","Formato das Letras","Continuidade","Angulação","Peso do Traço","Tamanho e Escala","Caligrafia"];
+const cl=document.getElementById('checklist');itens.forEach((it,i)=>{cl.innerHTML+=`<label class="flex flex-col gap-2 bg-white/5 p-3 rounded-xl text-sm"><span>${i+1}. ${it}</span><select onchange="calc()" id="c${i}"><option value="conv">✅ Convergente</option><option value="div">❌ Divergente</option><option value="inc">⚠️ Inconclusivo</option></select></label>`});
+function calc(){let d=0;for(let i=0;i<12;i++){if(document.getElementById('c'+i).value=='div')d++}let pct=d<=4?30:d<=8?60:90;document.getElementById('pct').innerText=pct+'%';document.getElementById('divs').innerText=d+' de 12 divergentes';document.getElementById('txtPct').innerText=d<=4?'BAIXA - AUTENTICA':d<=8?'MEDIA - SUSPEITA':'ALTA - DIVERGENTE';let cod='VL-'+Date.now().toString().slice(-6);document.getElementById('hashBox').innerHTML='Código: <b>'+cod+'</b> | Hash: '+btoa(cod+d).slice(0,20);window.cod=cod}calc();
+const cv=document.getElementById('assinatura'),ctx=cv.getContext('2d');let des=false;cv.addEventListener('pointerdown',e=>{des=true;ctx.beginPath();ctx.moveTo(e.offsetX,e.offsetY)});cv.addEventListener('pointermove',e=>{if(des){ctx.lineTo(e.offsetX,e.offsetY);ctx.stroke()}});window.addEventListener('pointerup',()=>des=false);
+function limpar(){ctx.clearRect(0,0,600,150)}
+function preview(){if(!document.getElementById('nomePerito').value||!document.getElementById('creaPerito').value){alert('Preencha Nome e CREA!');return}document.getElementById('prevArea').classList.remove('hidden');document.getElementById('prevC').innerHTML=`Perito: ${document.getElementById('nomePerito').value}<br>CREA: ${document.getElementById('creaPerito').value}<br>Viabilidade: ${document.getElementById('pct').innerText}<br>Código: ${window.cod}<br>Fotos: ${tot()}<br>Conclusão: ${document.getElementById('conclusaoPerito').value}`;document.getElementById('prevArea').scrollIntoView()}
+function fecharPrev(){document.getElementById('prevArea').classList.add('hidden')}
+async function pdf(){
+let total=tot();if(!document.getElementById('termo').checked){alert('Marque o termo!');return}if(!document.getElementById('nomePerito').value||!document.getElementById('creaPerito').value){alert('Preencha nome e CREA!');return}if(total<2){alert('Precisa 2 fotos!');return}if(!document.getElementById('conclusaoPerito').value.trim()){alert('Escreva a Conclusão do Perito!');return}
+const {jsPDF}=window.jspdf;const doc=new jsPDF();const agora=new Date();let dh=agora.toLocaleDateString('pt-BR');let hh=agora.toLocaleTimeString('pt-BR');let hash=btoa(window.cod+document.getElementById('pct').innerText+hh).slice(0,24);let dc=0;let chk=[];for(let i=0;i<12;i++){let v=document.getElementById('c'+i).value;if(v=='div')dc++;chk.push([itens[i],v.toUpperCase()])}
+let concl= document.getElementById('conclusaoPerito').value;let viab, tit;if(dc<=4){viab='30% - BAIXA - AUTENTICA';tit='CONCLUSAO: AUTENTICA'}else if(dc<=8){viab='60% - MEDIA - SUSPEITA';tit='CONCLUSAO: SUSPEITA'}else{viab='90% - ALTA - DIVERGENTE';tit='CONCLUSAO: ALTA DIVERGENCIA'}
+doc.setFillColor(10,25,49);doc.rect(0,0,210,35,'F');doc.setTextColor(56,189,248);doc.setFontSize(20);doc.text('VALIDA LAUDOS PRO',20,18);doc.setTextColor(255,255,255);doc.setFontSize(9);doc.text('PERICIA GRAFOTECNICA - ABNT NBR 16505 - CPC Art. 156 e 473',20,26);
+doc.setTextColor(0,0,0);doc.setFontSize(15);doc.text('LAUDO DE PERICIA GRAFOTECNICA',20,50);doc.setFontSize(11);doc.text('Laudo No: '+window.cod,20,60);doc.text('Perito: '+document.getElementById('nomePerito').value,20,70);doc.text('CREA/CAU: '+document.getElementById('creaPerito').value,20,78);doc.text('Cliente: '+document.getElementById('nomeCliente').value,20,86);doc.text('Processo: '+document.getElementById('numProcesso').value,20,94);doc.text('Data: '+dh+' as '+hh,20,102);doc.text('Hash: '+hash,20,110);
+doc.setFillColor(37,99,235);doc.setTextColor(255,255,255);doc.rect(20,118,170,12,'F');doc.text('RESULTADO: '+viab,25,126);
+doc.setTextColor(0,0,0);doc.setFontSize(10);doc.text('1. OBJETO',20,140);doc.setFontSize(9);doc.text('Verificar autenticidade da assinatura questionada em confronto com os padroes, por metodo comparativo grafoscopico.',20,148,{maxWidth:170});
+doc.addPage();doc.setFontSize(13);doc.text('2. ANALISE 12 PONTOS ABNT',20,20);doc.setFontSize(10);let y=30;chk.forEach((l,i)=>{doc.text((i+1)+'. '+l[0]+': '+l[1],20,y);y+=7});y+=8;doc.text('Divergentes: '+dc+' de 12 - Viabilidade: '+viab,20,y);
+doc.addPage();doc.setFontSize(13);doc.text('3. FOTOS ANALISADAS',20,20);let y2=32,x=20,fn=1;for(let k=1;k<=4;k++){if(F[k]!=''){try{doc.addImage(F[k],'JPEG',x,y2,80,60);doc.setFontSize(8);doc.text('Foto '+fn+' - '+(fn==1?'QUESTIONADA':'PADRAO'),x,y2+64);x+=85;fn++;if(x>150){x=20;y2+=72}}catch(e){}}}
+doc.addPage();doc.setFontSize(13);doc.text('4. CONCLUSAO DO PERITO',20,20);doc.setFillColor(220,240,255);doc.rect(20,26,170,12,'F');doc.text(tit,22,34);doc.setFontSize(10);doc.text(concl,20,48,{maxWidth:170});let y3=120;doc.setFontSize(11);doc.text('Metodologia: Exame por confronto grafoscopico, metodo comparativo, ABNT NBR 16505.',20,y3,{maxWidth:170});y3+=14;doc.text('Limitacao: Exame realizado sobre copias fotograficas. Recomenda-se analise do original para conclusao definitiva.',20,y3,{maxWidth:170});
+doc.addPage();doc.setFontSize(13);doc.text('5. ASSINATURA E VALIDACAO',20,20);let yy=32;doc.setFontSize(11);doc.text('ASSINATURA DO PERITO',20,yy);yy+=6;try{doc.addImage(cv.toDataURL('image/png'),'PNG',20,yy,80,20)}catch(e){}yy+=26;doc.setFontSize(10);doc.text(document.getElementById('nomePerito').value+' - '+document.getElementById('creaPerito').value,20,yy);yy+=14;doc.setFontSize(8);doc.text('ValidaLaudos - Douglas Almeida - WhatsApp (11) 98501-3903 - Valide: validalaudos.vercel.app/validar/'+window.cod+' | Hash: '+hash,20,yy,{maxWidth:170});
+doc.save('Laudo-'+window.cod+'.pdf');
+document.getElementById('res').innerHTML='<div class="bg-green-600 p-4 rounded-xl">✅ PDF GERADO! '+total+' fotos - Código '+window.cod+'</div>';
+document.getElementById('qrcode').innerHTML='';new QRCode(document.getElementById('qrcode'),{text:'https://validalaudos.vercel.app/validar/'+window.cod,width:120,height:120});
 }
 </script>
 </body>
