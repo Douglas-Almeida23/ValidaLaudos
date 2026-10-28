@@ -85,6 +85,25 @@
     <p style="font-size:12px; background:#EEF2F7; padding:8px; border-radius:6px">Exemplo real: Laudo VL-309331 - 60% - MÉDIA - SUSPEITA - 5 divergentes de 12 - gerado em 21/10/2026</p>
   </div>
 
+  <div id="authBox" style="display:none;max-width:440px;margin:25px auto;background:white;padding:24px;border-radius:12px;box-shadow:0 4px 18px #0002">
+    <h2 id="authTitulo">Criar sua conta</h2>
+    <p id="authDescricao">Cadastre-se para iniciar seu teste grátis de 3 dias.</p>
+
+    <label id="authNomeLabel" for="authNome">Nome</label>
+    <input id="authNome" type="text" placeholder="Seu nome completo" style="width:100%;padding:12px;margin:6px 0 12px;box-sizing:border-box">
+
+    <label for="authEmail">E-mail</label>
+    <input id="authEmail" type="email" placeholder="voce@exemplo.com" autocomplete="email" style="width:100%;padding:12px;margin:6px 0 12px;box-sizing:border-box">
+
+    <label for="authSenha">Senha</label>
+    <input id="authSenha" type="password" placeholder="Mínimo de 6 caracteres" autocomplete="new-password" style="width:100%;padding:12px;margin:6px 0 12px;box-sizing:border-box">
+
+    <p id="authMensagem" role="status" aria-live="polite"></p>
+
+    <button id="authBotao" class="btn btn-green" style="width:100%" onclick="enviarAuth()">Criar conta</button>
+    <button class="btn btn-navy" style="width:100%;margin-top:8px" onclick="voltarAuth()">Voltar</button>
+  </div>
+
   <div id="app">
     <div style="background:var(--navy); color:white; padding:14px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px">
       <b>Douglas Almeida - Perito</b><span id="badgePlano" style="background:var(--gold); color:#0B2340; padding:4px 10px; border-radius:20px; font-size:12px; font-weight:bold">ATIVO - 3 dias grátis</span>
@@ -141,22 +160,213 @@ function calc(){ let conv=0, div=0; for(let i=0;i<12;i++){ let v=document.getEle
 calc();
 
 // ===== LIBERAÇÃO AUTOMÁTICA - MÊS PARA USO =====
-function entrar(tipo){
-  let hoje=new Date();
-  let vencimento=new Date();
-  if(tipo==="TESTE"){ vencimento.setDate(hoje.getDate()+3); }
-  else { vencimento.setDate(hoje.getDate()+30); } // PRO ou LOGIN = 30 dias liberado
-  // Se já tem plano ativo e ainda não venceu, mantém
-  let vencSalvo=localStorage.getItem("vencimento");
-  let planoSalvo=localStorage.getItem("plano");
-  if(planoSalvo==="ATIVO" && vencSalvo){
-    let dVenc=new Date(vencSalvo.split("/").reverse().join("-"));
-    if(dVenc>hoje){ vencimento=dVenc; }
+
+let modoAuthAtual = "CADASTRO";
+
+function abrirAuth(tipo) {
+  modoAuthAtual = tipo;
+
+  document.getElementById("landing").style.display = "none";
+  document.getElementById("app").style.display = "none";
+  document.getElementById("authBox").style.display = "block";
+
+  const nomeLabel = document.getElementById("authNomeLabel");
+  const nome = document.getElementById("authNome");
+  const titulo = document.getElementById("authTitulo");
+  const descricao = document.getElementById("authDescricao");
+  const botao = document.getElementById("authBotao");
+  const mensagem = document.getElementById("authMensagem");
+
+  nome.value = "";
+  document.getElementById("authEmail").value = "";
+  document.getElementById("authSenha").value = "";
+  mensagem.textContent = "";
+
+  nomeLabel.style.display = tipo === "CADASTRO" ? "block" : "none";
+  nome.required = tipo === "CADASTRO";
+
+  if (tipo === "CADASTRO") {
+    titulo.textContent = "Criar sua conta";
+    descricao.textContent = "Cadastre-se para iniciar seu teste grátis de 3 dias.";
+    botao.textContent = "Criar conta";
+  } else if (tipo === "LOGIN") {
+    titulo.textContent = "Entrar na sua conta";
+    descricao.textContent = "Informe seu e-mail e sua senha.";
+    botao.textContent = "Entrar";
+  } else {
+    titulo.textContent = "Assinar o Plano PRO";
+    descricao.textContent =
+      "Entre na sua conta. O acesso PRO só será liberado após confirmação real do pagamento.";
+    botao.textContent = "Entrar e verificar acesso";
   }
-  localStorage.setItem("plano","ATIVO");
-  localStorage.setItem("vencimento", vencimento.toLocaleDateString('pt-BR'));
-  localStorage.setItem("inicio", hoje.toLocaleDateString('pt-BR'));
-  localStorage.setItem("tipoPlano", tipo==="TESTE"?"TESTE 3 DIAS":"PRO - R$97/mês");
+
+  window.scrollTo(0, 0);
+}
+
+function voltarAuth() {
+  document.getElementById("authBox").style.display = "none";
+  document.getElementById("app").style.display = "none";
+  document.getElementById("landing").style.display = "block";
+  window.scrollTo(0, 0);
+}
+
+async function enviarAuth() {
+  const nome = document.getElementById("authNome").value.trim();
+  const email = document.getElementById("authEmail").value.trim();
+  const senha = document.getElementById("authSenha").value;
+  const mensagem = document.getElementById("authMensagem");
+  const botao = document.getElementById("authBotao");
+
+  mensagem.style.color = "#b42318";
+  mensagem.textContent = "";
+
+  if (!email || !senha || (modoAuthAtual === "CADASTRO" && !nome)) {
+    mensagem.textContent = "Preencha todos os campos obrigatórios.";
+    return;
+  }
+
+  if (modoAuthAtual === "CADASTRO" && senha.length < 6) {
+    mensagem.textContent = "A senha precisa ter pelo menos 6 caracteres.";
+    return;
+  }
+
+  botao.disabled = true;
+  botao.textContent = "Aguarde...";
+
+  try {
+    if (modoAuthAtual === "CADASTRO") {
+      const { data, error } = await supabaseClient.auth.signUp({
+        email: email,
+        password: senha,
+        options: {
+          data: { nome: nome }
+        }
+      });
+
+      if (error) throw error;
+
+      if (!data.session) {
+        mensagem.style.color = "#067647";
+        mensagem.textContent =
+          "Cadastro iniciado! Confira seu e-mail e confirme o endereço antes de entrar.";
+        return;
+      }
+
+      await carregarAcesso(data.user);
+      return;
+    }
+
+    const { data, error } =
+      await supabaseClient.auth.signInWithPassword({
+        email: email,
+        password: senha
+      });
+
+    if (error) throw error;
+
+    await carregarAcesso(data.user);
+  } catch (error) {
+    mensagem.textContent =
+      error.message || "Não foi possível concluir. Tente novamente.";
+  } finally {
+    botao.disabled = false;
+
+    if (modoAuthAtual === "CADASTRO") {
+      botao.textContent = "Criar conta";
+    } else if (modoAuthAtual === "LOGIN") {
+      botao.textContent = "Entrar";
+    } else {
+      botao.textContent = "Entrar e verificar acesso";
+    }
+  }
+}
+
+async function carregarAcesso(user) {
+  const mensagem = document.getElementById("authMensagem");
+
+  const { data: assinatura, error } = await supabaseClient
+    .from("assinaturas")
+    .select("plano,status,fim_teste,pagamento_confirmado_em")
+    .eq("usuario_id", user.id)
+    .maybeSingle();
+
+  if (error) {
+    mensagem.textContent =
+      "Não foi possível verificar sua assinatura. Tente novamente.";
+    await supabaseClient.auth.signOut();
+    return;
+  }
+
+  if (!assinatura) {
+    mensagem.textContent =
+      "Não encontramos sua assinatura. Entre em contato com o suporte.";
+    await supabaseClient.auth.signOut();
+    return;
+  }
+
+  const agora = new Date();
+  const fimTeste = assinatura.fim_teste
+    ? new Date(assinatura.fim_teste)
+    : null;
+
+  const testeValido =
+    assinatura.status === "teste" &&
+    fimTeste &&
+    fimTeste.getTime() > agora.getTime();
+
+  const proValido =
+    assinatura.status === "ativa" &&
+    assinatura.pagamento_confirmado_em !== null;
+
+  if (modoAuthAtual === "PRO" && !proValido) {
+    if (testeValido) {
+      mensagem.style.color = "#9a6700";
+      mensagem.textContent =
+        "Seu teste grátis continua válido, mas a integração de pagamento PRO ainda não está configurada. Nenhuma assinatura paga foi ativada.";
+      await supabaseClient.auth.signOut();
+      return;
+    }
+
+    mensagem.textContent =
+      "O pagamento PRO ainda não foi confirmado. Nenhum acesso pago foi liberado.";
+    await supabaseClient.auth.signOut();
+    return;
+  }
+
+  if (!testeValido && !proValido) {
+    mensagem.textContent =
+      "Seu período de teste terminou ou sua assinatura não está ativa. É necessário regularizar o acesso.";
+    await supabaseClient.auth.signOut();
+    return;
+  }
+
+  const tipoPlano = proValido ? "PRO" : "TESTE 3 DIAS";
+  const vencimento = proValido
+    ? "Pagamento confirmado"
+    : fimTeste.toLocaleDateString("pt-BR");
+
+  localStorage.setItem("plano", "ATIVO");
+  localStorage.setItem("tipoPlano", tipoPlano);
+  localStorage.setItem("vencimento", vencimento);
+
+  document.getElementById("authBox").style.display = "none";
+  document.getElementById("landing").style.display = "none";
+  document.getElementById("app").style.display = "block";
+
+  document.getElementById("badgePlano").innerText =
+    proValido ? "PRO ATIVO - PAGAMENTO CONFIRMADO" :
+    "TESTE ATIVO até " + vencimento;
+
+  const info = document.getElementById("infoVenc");
+  if (info) {
+    info.innerText = proValido
+      ? "Plano PRO ativo com pagamento confirmado."
+      : "Teste grátis ativo até " + vencimento + ".";
+  }
+
+  window.scrollTo(0, 0);
+}
+
   atualizarBadge();
   document.getElementById("landing").style.display="none";
   document.getElementById("app").style.display="block";
@@ -164,24 +374,37 @@ function entrar(tipo){
   if(tipo==="PRO"){ alert("✅ Pagamento confirmado! Acesso PRO liberado automaticamente por 30 dias até "+vencimento.toLocaleDateString('pt-BR')); }
   else if(tipo==="TESTE"){ alert("✅ Teste grátis liberado! Você tem 3 dias de uso até "+vencimento.toLocaleDateString('pt-BR')); }
 }
-function atualizarBadge(){
-  let venc=localStorage.getItem("vencimento");
-  let tipo=localStorage.getItem("tipoPlano")||"PRO";
-  if(venc){
-    document.getElementById("badgePlano").innerText="ATIVO - "+tipo+" até "+venc;
-    document.getElementById("infoVenc").innerText="✅ Plano "+tipo+" ATIVO | Vencimento: "+venc+" | Liberação automática ao adquirir - pode usar todos os recursos";
-    let aviso=document.getElementById("avisoPlano");
-    aviso.style.display="block"; aviso.innerText="✅ Você já tem plano ativo até "+venc+" - Clique em ENTRAR para continuar usando";
+
+function atualizarBadge() {
+  const badge = document.getElementById("badgePlano");
+  const info = document.getElementById("infoVenc");
+  const aviso = document.getElementById("avisoPlano");
+
+  if (badge) {
+    badge.innerText = "ACESSO NÃO VERIFICADO";
+  }
+
+  if (info) {
+    info.innerText =
+      "Entre na sua conta para verificar seu plano e a validade do acesso.";
+  }
+
+  if (aviso) {
+    aviso.style.display = "none";
+    aviso.innerText = "";
   }
 }
-function verificarPlanoAoAbrir(){
-  let plano=localStorage.getItem("plano");
-  let venc=localStorage.getItem("vencimento");
-  if(plano==="ATIVO" && venc){
-    let hoje=new Date(); let dVenc=new Date(venc.split("/").reverse().join("-"));
-    if(dVenc>=hoje){ atualizarBadge(); } else { localStorage.setItem("plano","VENCIDO"); document.getElementById("badgePlano").innerText="VENCIDO - Renovar R$97/mês"; }
-  }
+
+
+function verificarPlanoAoAbrir() {
+  localStorage.removeItem("plano");
+  localStorage.removeItem("vencimento");
+  localStorage.removeItem("inicio");
+  localStorage.removeItem("tipoPlano");
+
+  atualizarBadge();
 }
+
 verificarPlanoAoAbrir();
 function voltarLanding(){ document.getElementById("app").style.display="none"; document.getElementById("landing").style.display="block"; }
 function loadFoto(inp,id){ const f=inp.files[0]; if(!f) return; const r=new FileReader(); r.onload=e=>{ let im=document.getElementById(id); im.src=e.target.result; im.style.display="block"; }; r.readAsDataURL(f); }
