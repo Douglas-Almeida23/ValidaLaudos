@@ -367,13 +367,7 @@ async function carregarAcesso(user) {
   window.scrollTo(0, 0);
 }
 
-  atualizarBadge();
-  document.getElementById("landing").style.display="none";
-  document.getElementById("app").style.display="block";
-  window.scrollTo(0,0);
-  if(tipo==="PRO"){ alert("✅ Pagamento confirmado! Acesso PRO liberado automaticamente por 30 dias até "+vencimento.toLocaleDateString('pt-BR')); }
-  else if(tipo==="TESTE"){ alert("✅ Teste grátis liberado! Você tem 3 dias de uso até "+vencimento.toLocaleDateString('pt-BR')); }
-}
+
 
 function atualizarBadge() {
   const badge = document.getElementById("badgePlano");
