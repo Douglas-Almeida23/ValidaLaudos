@@ -96,7 +96,12 @@
     <input id="authEmail" type="email" placeholder="voce@exemplo.com" autocomplete="email" style="width:100%;padding:12px;margin:6px 0 12px;box-sizing:border-box">
 
     <label for="authSenha">Senha</label>
-    <input id="authSenha" type="password" placeholder="Mínimo de 6 caracteres" autocomplete="new-password" style="width:100%;padding:12px;margin:6px 0 12px;box-sizing:border-box">
+   <div style="display:flex;gap:6px;margin:6px 0 12px">
+  <input id="authSenha" type="password" placeholder="Mínimo de 6 caracteres" autocomplete="new-password" style="flex:1;min-width:0;padding:12px;box-sizing:border-box">
+  <button type="button" onclick="alternarSenha()" id="botaoVerSenha" style="padding:10px;border:1px solid #ccc;border-radius:6px;background:#eee;cursor:pointer">
+    Mostrar
+  </button>
+</div>
 
     <p id="authMensagem" role="status" aria-live="polite"></p>
 
@@ -163,7 +168,20 @@ calc();
 
 let modoAuthAtual = "CADASTRO";
 
-function abrirAuth(tipo) {
+function alternarSenha() {
+  const campo = document.getElementById("authSenha");
+  const botao = document.getElementById("botaoVerSenha");
+
+  if (campo.type === "password") {
+    campo.type = "text";
+    botao.innerText = "Ocultar";
+  } else {
+    campo.type = "password";
+    botao.innerText = "Mostrar";
+  }
+}
+
+  function abrirAuth(tipo) {
   modoAuthAtual = tipo;
 
   document.getElementById("landing").style.display = "none";
