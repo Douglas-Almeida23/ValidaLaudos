@@ -253,14 +253,16 @@ async function enviarAuth() {
 
   try {
     if (modoAuthAtual === "CADASTRO") {
-      const { data, error } = await supabaseClient.auth.signUp({
-        email: email,
-        password: senha,
-        options: {
-          data: { nome: nome }
-        }
-      });
-
+     const { data, error } = await supabaseClient.auth.signUp({
+  email: email,
+  password: senha,
+  options: {
+    emailRedirectTo: "https://validalaudos-3d0u9asb6-valida-laudos.vercel.app/",
+    data: {
+      nome: nome
+    }
+  }
+});
       if (error) throw error;
 
       if (!data.session) {
