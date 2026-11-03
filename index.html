@@ -91,6 +91,18 @@
 
     <label id="authNomeLabel" for="authNome">Nome</label>
     <input id="authNome" type="text" placeholder="Seu nome completo" style="width:100%;padding:12px;margin:6px 0 12px;box-sizing:border-box">
+    
+<label id="authCpfLabel" for="authCpf">CPF</label>
+<input
+  id="authCpf"
+  type="text"
+  placeholder="000.000.000-00"
+  inputmode="numeric"
+  autocomplete="off"
+  maxlength="14"
+  style="width:100%;padding:12px;margin:6px 0 12px;box-sizing:border-box"
+>
+
 
     <label for="authEmail">E-mail</label>
     <input id="authEmail" type="email" placeholder="voce@exemplo.com" autocomplete="email" style="width:100%;padding:12px;margin:6px 0 12px;box-sizing:border-box">
@@ -191,17 +203,26 @@ function alternarSenha() {
   const nomeLabel = document.getElementById("authNomeLabel");
   const nome = document.getElementById("authNome");
   const titulo = document.getElementById("authTitulo");
+    
+const cpfLabel = document.getElementById("authCpfLabel");
+const cpf = document.getElementById("authCpf");
+
   const descricao = document.getElementById("authDescricao");
   const botao = document.getElementById("authBotao");
   const mensagem = document.getElementById("authMensagem");
 
   nome.value = "";
+    cpf.value = "";
   document.getElementById("authEmail").value = "";
   document.getElementById("authSenha").value = "";
   mensagem.textContent = "";
 
   nomeLabel.style.display = tipo === "CADASTRO" ? "block" : "none";
-  nome.required = tipo === "CADASTRO";
+    
+cpfLabel.style.display = tipo === "CADASTRO" ? "block" : "none";
+cpf.style.display = tipo === "CADASTRO" ? "block" : "none";
+cpf.required = tipo === "CADASTRO";
+ nome.required = tipo === "CADASTRO";
 
   if (tipo === "CADASTRO") {
     titulo.textContent = "Criar sua conta";
