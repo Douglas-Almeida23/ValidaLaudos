@@ -322,8 +322,12 @@ async function enviarAuth() {
   }
 }
 
+
 async function carregarAcesso(user) {
   const mensagem = document.getElementById("authMensagem");
+
+  mensagem.style.color = "#b42318";
+  mensagem.textContent = "Verificando seu plano...";
 
   const { data: assinatura, error } = await supabaseClient
     .from("assinaturas")
@@ -334,18 +338,17 @@ async function carregarAcesso(user) {
   if (error) {
     mensagem.textContent =
       "Não foi possível verificar sua assinatura. Tente novamente.";
-    await supabaseClient.auth.signOut();
     return;
   }
 
   if (!assinatura) {
     mensagem.textContent =
       "Não encontramos sua assinatura. Entre em contato com o suporte.";
-    await supabaseClient.auth.signOut();
     return;
   }
 
   const agora = new Date();
+
   const fimTeste = assinatura.fim_teste
     ? new Date(assinatura.fim_teste)
     : null;
@@ -359,29 +362,79 @@ async function carregarAcesso(user) {
     assinatura.status === "ativa" &&
     assinatura.pagamento_confirmado_em !== null;
 
-  if (modoAuthAtual === "PRO" && !proValido) {
-    if (testeValido) {
-      mensagem.style.color = "#9a6700";
-      mensagem.textContent =
-        "Seu teste grátis continua válido, mas a integração de pagamento PRO ainda não está configurada. Nenhuma assinatura paga foi ativada.";
-      await supabaseClient.auth.signOut();
-      return;
-    }
-
-    mensagem.textContent =
-      "O pagamento PRO ainda não foi confirmado. Nenhum acesso pago foi liberado.";
-    await supabaseClient.auth.signOut();
-    return;
+  // Se clicou em ASSINAR PRO e já tem pagamento confirmado,
+  // entra normalmente.
+  if (modoAuthAtual === "PRO" && proValido) {
+    // Continua abaixo para liberar o acesso PRO.
   }
 
+  // Se clicou em ASSINAR PRO e ainda não pagou,
+  // iniciar o checkout sem encerrar a sessão.
+  else if (modoAuthAtual === "PRO" && !proValido) {
+    mensagem.style.color = "#9a6700";
+    mensagem.textContent =
+      "Preparando sua assinatura PRO. Aguarde...";
+
+    try {
+      const { data: sessao } =
+        await supabaseClient.auth.getSession();
+
+      const token = sessao.session?.access_token;
+
+      if (!token) {
+        mensagem.textContent =
+          "Sua sessão expirou. Entre novamente.";
+        return;
+      }
+
+      const resposta = await fetch("/api/criar-assinatura", {
+        method: "POST",
+        headers: {
+          "Authorization": "Bearer " + token,
+          "Content-Type": "application/json"
+        }
+      });
+
+      const resultado = await resposta.json();
+
+      if (!resposta.ok) {
+        mensagem.textContent =
+          resultado.erro ||
+          resultado.message ||
+          "Não foi possível iniciar o pagamento.";
+        return;
+      }
+
+      if (!resultado.checkout_url) {
+        mensagem.textContent =
+          "O Mercado Pago não retornou o endereço do pagamento.";
+        return;
+      }
+
+      mensagem.style.color = "#067647";
+      mensagem.textContent =
+        "Redirecionando para o Mercado Pago...";
+
+      window.location.href = resultado.checkout_url;
+      return;
+
+    } catch (erro) {
+      mensagem.textContent =
+        erro.message ||
+        "Erro ao iniciar o pagamento. Tente novamente.";
+      return;
+    }
+  }
+
+  // Login normal: permitir teste válido ou PRO confirmado.
   if (!testeValido && !proValido) {
     mensagem.textContent =
       "Seu período de teste terminou ou sua assinatura não está ativa. É necessário regularizar o acesso.";
-    await supabaseClient.auth.signOut();
     return;
   }
 
   const tipoPlano = proValido ? "PRO" : "TESTE 3 DIAS";
+
   const vencimento = proValido
     ? "Pagamento confirmado"
     : fimTeste.toLocaleDateString("pt-BR");
@@ -395,18 +448,23 @@ async function carregarAcesso(user) {
   document.getElementById("app").style.display = "block";
 
   document.getElementById("badgePlano").innerText =
-    proValido ? "PRO ATIVO - PAGAMENTO CONFIRMADO" :
-    "TESTE ATIVO até " + vencimento;
+    proValido
+      ? "PRO ATIVO - PAGAMENTO CONFIRMADO"
+      : "TESTE ATIVO até " + vencimento;
 
   const info = document.getElementById("infoVenc");
+
   if (info) {
     info.innerText = proValido
       ? "Plano PRO ativo com pagamento confirmado."
       : "Teste grátis ativo até " + vencimento + ".";
   }
 
+  mensagem.textContent = "";
+
   window.scrollTo(0, 0);
 }
+
 
 
 
